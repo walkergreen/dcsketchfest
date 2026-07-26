@@ -18,7 +18,10 @@ assets/css/style.css        all styles
 assets/js/main.js           mobile nav, sliders, scroll reveals
 assets/img/                 all images (nothing loads from Webflow's CDN)
 assets/lineups/<year>.json  lineup data, one file per festival
+assets/lineups/gallery.json photo manifest for the album and carousel
+assets/img/gallery/<year>/  festival photos (800px thumbs + 1800px full)
 tools/build-lineup.py       regenerates the lineup pages from that JSON
+tools/build-gallery.py      regenerates the album and the homepage carousel
 tools/mailing-list.gs       Apps Script for the signup form (deploy separately)
 CNAME                       custom domain for GitHub Pages
 ```
@@ -149,9 +152,10 @@ When the 2027 dates are public, in order:
    `2027-03-01`). The calendar pulls shows straight from Crowdwork, so it fills
    in on its own once shows are published there.
 3. **FAQ** — update "When is the 2027 festival?" and "Where do I get tickets?".
-4. **Venue** — the `#where-section` copy currently says the 2027 venue is
-   confirmed with the dates. Once it's locked, change the heading back to
-   `We're back at`.
+4. **Venue** — `#where-section` currently shows a `.venue-tba` panel reading
+   "2027 location to be announced". Once the venue is signed, replace that
+   panel with the venue name, the address link, and the Google Maps iframe
+   (both are in git history, before the 2027 rebrand).
 5. **Lineup** — add the new teams as `assets/lineups/2027.json`, add a `"2027"`
    entry to the `YEARS` dict in `tools/build-lineup.py`, and run it. The page and
    the year switcher build themselves; earlier years stay put as the archive.
@@ -168,7 +172,7 @@ When the 2027 dates are public, in order:
   (`crowdwork.com/embed.js`, `data-theatre="dcsketchfest"`), currently commented
   out. Unchanged from the Webflow site; it pulls shows from the Crowdwork
   account, so the lineup and on-sale dates are managed there, not here.
-- **Donate** — links to `givebutter.com/dcsketchfest2026`.
+- **Donate** — links to `givebutter.com/dcsketchfest2027`.
 - **Map** — a keyless Google Maps embed iframe.
 
 ### Mailing list

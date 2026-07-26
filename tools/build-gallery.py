@@ -152,7 +152,7 @@ def album_page(manifest) -> str:
 
 {NAV}
 
-      <a class="btn nav-donate-desktop" href="https://givebutter.com/dcsketchfest2026"><span>Donate</span></a>
+      <a class="btn nav-donate-desktop" href="https://givebutter.com/dcsketchfest2027"><span>Donate</span></a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
         <span></span><span></span><span></span>
