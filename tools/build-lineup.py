@@ -144,7 +144,7 @@ PAGE = """<!DOCTYPE html>
         </div>
       </div>
     </div>
-      <p class="footer-credit">Designed by Walker Green</p>
+      <p class="footer-credit">Designed by <a href="https://instagram.com/guywalks" target="_blank" rel="noopener">Walker Green</a></p>
 
   </div>
 </footer>

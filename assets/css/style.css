@@ -495,31 +495,42 @@ h5 {
   pointer-events: none;
 }
 
+/* The hero cast drifts on the same clock as the Mumbies — slower and with a
+   longer lift, since these figures are much larger. */
 .hero-art img {
   position: absolute;
   width: auto;
+  --lift: 22px;
+  transform: rotate(var(--tilt, 0deg));
+  animation: character-float var(--float-dur, 7s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
 .hero-art .art-tumbler {
+  --tilt: -8deg;
+  --float-dur: 7s;
   top: 6%;
   right: -2%;
   height: 32vh;
-  transform: rotate(-8deg);
 }
 
 /* Tucked toward the bezel and low, so the centred headline column stays
    clear of it — this one used to cut across "…this fall". */
 .hero-art .art-striped {
+  --tilt: 0deg;
+  --float-dur: 6s;
+  --float-delay: -2.5s;
   bottom: -1%;
   right: -5%;
   height: 44vh;
 }
 
 .hero-art .art-side {
+  --tilt: 6deg;
+  --float-dur: 8.5s;
+  --float-delay: -4.2s;
   bottom: 8%;
   left: -5%;
   height: 28vh;
-  transform: rotate(6deg);
 }
 
 /* Between tablet and desktop the headline is at its widest relative to the
@@ -1024,7 +1035,7 @@ h5 {
   position: absolute;
   width: 9.5rem;
   transform: rotate(var(--tilt, 0deg));
-  animation: mumbie-float var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite;
+  animation: character-float var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
 .mumbie-art__side--left {
@@ -1053,10 +1064,13 @@ h5 {
   width: 10.5rem;
 }
 
-@keyframes mumbie-float {
+/* Shared by the little Mumbies and the hero characters. --tilt is the resting
+   angle it swings around, --lift how far it rises at the top of the arc. */
+@keyframes character-float {
   0%,
   100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
-  50%  { transform: translateY(-16px) rotate(calc(var(--tilt, 0deg) + 3deg)); }
+  50%  { transform: translateY(calc(-1 * var(--lift, 16px)))
+                    rotate(calc(var(--tilt, 0deg) + 3deg)); }
 }
 
 /* On a phone there is no side margin to orbit in, so they tuck against the
@@ -1340,6 +1354,14 @@ h5 {
   opacity: .72;
 }
 
+.footer-credit a {
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-credit a:hover { color: var(--pink); }
+
 @media (max-width: 767px) {
   .footer-wrapper { flex-direction: column; text-align: center; }
   .footer-social { text-align: center; }
@@ -1617,7 +1639,8 @@ h5 {
   .slider-track { scroll-behavior: auto; }
 
   .ticker-track,
-  .mumbie-art__side { animation: none; }
+  .mumbie-art__side,
+  .hero-art img { animation: none; }
 }
 
 /* --------------------------------------------------------------- misc --- */
