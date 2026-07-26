@@ -955,6 +955,27 @@ h5 {
 
 /* -------------------------------------------------------------- venue --- */
 
+/* Stands in for the address and map while the 2027 venue is unsigned. */
+.venue-tba {
+  max-width: 42rem;
+  margin: 2.5rem auto 0;
+  padding: 3rem 2rem 2.5rem;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  background: var(--white);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--blue);
+  transform: rotate(1deg);
+}
+
+.venue-tba .body-copy {
+  margin: 1.25rem auto 2rem;
+  max-width: 30rem;
+}
+
+@media (max-width: 767px) {
+  .venue-tba { padding: 2rem 1.25rem; }
+}
+
 .venue-map {
   border: var(--border);
   border-radius: var(--radius-card);
@@ -987,20 +1008,22 @@ h5 {
   z-index: 1;
 }
 
+/* The little Mumbies read as a scattered crowd around the mascot, so each
+   one is tilted a different way rather than standing to attention. */
 .mumbie-art__side {
   position: absolute;
   bottom: 0;
-  width: 9rem;
+  width: 12rem;
 }
 
-.mumbie-art__side--left  { left: 0; width: 6rem; }
-.mumbie-art__side--mid   { left: 22%; bottom: -1rem; width: 5rem; }
-.mumbie-art__side--right { right: 0; }
+.mumbie-art__side--left  { left: -2%;  width: 8.5rem; transform: rotate(-12deg); }
+.mumbie-art__side--mid   { left: 20%;  width: 7.5rem; bottom: -1rem; transform: rotate(8deg); }
+.mumbie-art__side--right { right: -2%; transform: rotate(-6deg); }
 
 @media (max-width: 767px) {
-  .mumbie-art__side { width: 5rem; }
-  .mumbie-art__side--left { width: 3.75rem; }
-  .mumbie-art__side--mid  { width: 3.25rem; left: 18%; }
+  .mumbie-art__side { width: 7rem; }
+  .mumbie-art__side--left { width: 5rem; }
+  .mumbie-art__side--mid  { width: 4.5rem; left: 16%; }
 }
 
 /* ---------------------------------------------------------------- faq --- */

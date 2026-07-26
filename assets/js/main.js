@@ -122,6 +122,44 @@
     });
   }
 
+  /* -------------------------------------------------------- scroll spin */
+
+  /* Elements marked [data-spin] rotate as they travel up the viewport, the
+     way the Mumbie in the yellow frame did on the old site. data-spin is the
+     sweep in degrees; data-spin-base is the resting angle, which is also what
+     the stylesheet applies when this never runs. */
+  var spinners = Array.prototype.slice.call(document.querySelectorAll("[data-spin]"));
+  var stillness = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (spinners.length && !(stillness && stillness.matches)) {
+    var queued = false;
+
+    function spin() {
+      queued = false;
+      var viewport = window.innerHeight || document.documentElement.clientHeight;
+
+      spinners.forEach(function (el) {
+        var box = el.getBoundingClientRect();
+        if (box.bottom < 0 || box.top > viewport) return;
+
+        // -1 entering from the bottom, 0 centred, +1 leaving past the top.
+        var travel = 1 - 2 * ((box.top + box.height / 2) / viewport);
+        var sweep = parseFloat(el.getAttribute("data-spin")) || 30;
+        var base = parseFloat(el.getAttribute("data-spin-base")) || 0;
+        el.style.transform = "rotate(" + (base + travel * sweep).toFixed(2) + "deg)";
+      });
+    }
+
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(spin);
+    }, { passive: true });
+
+    window.addEventListener("resize", spin);
+    spin();
+  }
+
   /* ------------------------------------------------------------ lightbox */
 
   var lightbox = document.getElementById("lightbox");

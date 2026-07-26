@@ -68,8 +68,10 @@ def build_carousel(manifest) -> str:
     slides = []
     for year, team in CAROUSEL:
         e = find(manifest, year, team)
+        # The full-size file, not the thumb: a slide is ~950px wide on desktop
+        # and 800px thumbs visibly soften when stretched to it.
         slides.append(
-            f'          <figure class="slide-card" style="background-image:url(\'{e["thumb"]}\')">\n'
+            f'          <figure class="slide-card" style="background-image:url(\'{e["full"]}\')">\n'
             f'            <figcaption class="slide-card__name">{esc(e["team"])}</figcaption>\n'
             f"          </figure>"
         )
