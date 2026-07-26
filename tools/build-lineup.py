@@ -144,6 +144,8 @@ PAGE = """<!DOCTYPE html>
         </div>
       </div>
     </div>
+      <p class="footer-credit">Designed by Walker Green</p>
+
   </div>
 </footer>
 

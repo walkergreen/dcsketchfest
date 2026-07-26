@@ -210,6 +210,8 @@ def album_page(manifest) -> str:
         </div>
       </div>
     </div>
+      <p class="footer-credit">Designed by Walker Green</p>
+
   </div>
 </footer>
 

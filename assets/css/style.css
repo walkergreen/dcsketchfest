@@ -797,10 +797,14 @@ h5 {
   .slider-track > * { flex: 0 0 100%; }
 }
 
+/* margin:0 is load-bearing — a <figure> carries a UA margin of 1em 40px, and
+   that 80px of horizontal margin per slide broke the two-up flex math and
+   pushed the second slide past the right edge of both sliders. */
 .slide-card {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin: 0;
   min-height: 450px;
   border: var(--border);
   border-radius: var(--radius-card);
@@ -818,7 +822,9 @@ h5 {
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--pink);
 }
 
+/* Same story for <blockquote>. */
 .slide-card__quote {
+  margin: 0;
   font-family: var(--font-body);
   font-weight: 500;
   text-transform: none;
@@ -994,10 +1000,12 @@ h5 {
 
 /* ------------------------------------------------------------- mumbie --- */
 
+/* Wider than the mascot so the little ones have clear margin to float in
+   rather than stacking up along the bottom edge. */
 .mumbie-art {
   position: relative;
   margin: 3rem auto;
-  max-width: 40rem;
+  max-width: 52rem;
 }
 
 .mumbie-art__main {
@@ -1008,22 +1016,61 @@ h5 {
   z-index: 1;
 }
 
-/* The little Mumbies read as a scattered crowd around the mascot, so each
-   one is tilted a different way rather than standing to attention. */
+/* Three little Mumbies orbiting the mascot — one high left, one low left,
+   one out to the right — each bobbing on its own clock so they never move
+   in lockstep. --tilt is the resting angle the float animation swings around,
+   and is what remains if the animation never runs. */
 .mumbie-art__side {
   position: absolute;
-  bottom: 0;
-  width: 12rem;
+  width: 9.5rem;
+  transform: rotate(var(--tilt, 0deg));
+  animation: mumbie-float var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
-.mumbie-art__side--left  { left: -2%;  width: 8.5rem; transform: rotate(-12deg); }
-.mumbie-art__side--mid   { left: 20%;  width: 7.5rem; bottom: -1rem; transform: rotate(8deg); }
-.mumbie-art__side--right { right: -2%; transform: rotate(-6deg); }
+.mumbie-art__side--left {
+  --tilt: -10deg;
+  --float-dur: 6.5s;
+  top: 4%;
+  left: 0;
+  width: 10rem;
+}
+
+.mumbie-art__side--mid {
+  --tilt: 9deg;
+  --float-dur: 5.5s;
+  --float-delay: -2.2s;
+  bottom: 6%;
+  left: 4%;
+  width: 9rem;
+}
+
+.mumbie-art__side--right {
+  --tilt: -7deg;
+  --float-dur: 7.5s;
+  --float-delay: -3.8s;
+  top: 30%;
+  right: 0;
+  width: 10.5rem;
+}
+
+@keyframes mumbie-float {
+  0%,
+  100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50%  { transform: translateY(-16px) rotate(calc(var(--tilt, 0deg) + 3deg)); }
+}
+
+/* On a phone there is no side margin to orbit in, so they tuck against the
+   mascot's edges instead — smaller, and clear of its face. */
+@media (max-width: 991px) {
+  .mumbie-art__side--left  { width: 6.5rem; top: 0; left: -3%; }
+  .mumbie-art__side--mid   { width: 6rem; bottom: 2%; left: -2%; }
+  .mumbie-art__side--right { width: 7rem; top: 26%; right: -3%; }
+}
 
 @media (max-width: 767px) {
-  .mumbie-art__side { width: 7rem; }
-  .mumbie-art__side--left { width: 5rem; }
-  .mumbie-art__side--mid  { width: 4.5rem; left: 16%; }
+  .mumbie-art__side--left  { width: 5rem; }
+  .mumbie-art__side--mid   { width: 4.5rem; }
+  .mumbie-art__side--right { width: 5.5rem; }
 }
 
 /* ---------------------------------------------------------------- faq --- */
@@ -1278,6 +1325,20 @@ h5 {
 }
 
 .social-links a:hover { text-decoration: underline; color: var(--pink); }
+
+.footer-credit {
+  width: 100%;
+  max-width: var(--container);
+  margin: 2.25rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(246, 239, 225, .22);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  letter-spacing: .02em;
+  color: var(--paper);
+  opacity: .72;
+}
 
 @media (max-width: 767px) {
   .footer-wrapper { flex-direction: column; text-align: center; }
@@ -1555,7 +1616,8 @@ h5 {
 
   .slider-track { scroll-behavior: auto; }
 
-  .ticker-track { animation: none; }
+  .ticker-track,
+  .mumbie-art__side { animation: none; }
 }
 
 /* --------------------------------------------------------------- misc --- */
