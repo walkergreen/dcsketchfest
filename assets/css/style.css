@@ -495,19 +495,15 @@ h5 {
   pointer-events: none;
 }
 
-/* The hero cast drifts on the same clock as the Mumbies — slower and with a
-   longer lift, since these figures are much larger. */
+/* The hero cast sits still — only the little Mumbies float. */
 .hero-art img {
   position: absolute;
   width: auto;
-  --lift: 22px;
   transform: rotate(var(--tilt, 0deg));
-  animation: character-float var(--float-dur, 7s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
 .hero-art .art-tumbler {
   --tilt: -8deg;
-  --float-dur: 7s;
   top: 6%;
   right: -2%;
   height: 32vh;
@@ -517,8 +513,6 @@ h5 {
    clear of it — this one used to cut across "…this fall". */
 .hero-art .art-striped {
   --tilt: 0deg;
-  --float-dur: 6s;
-  --float-delay: -2.5s;
   bottom: -1%;
   right: -5%;
   height: 44vh;
@@ -526,8 +520,6 @@ h5 {
 
 .hero-art .art-side {
   --tilt: 6deg;
-  --float-dur: 8.5s;
-  --float-delay: -4.2s;
   bottom: 8%;
   left: -5%;
   height: 28vh;
@@ -1064,8 +1056,8 @@ h5 {
   width: 10.5rem;
 }
 
-/* Shared by the little Mumbies and the hero characters. --tilt is the resting
-   angle it swings around, --lift how far it rises at the top of the arc. */
+/* --tilt is the resting angle the bob swings around, --lift how far it rises
+   at the top of the arc. */
 @keyframes character-float {
   0%,
   100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
@@ -1639,8 +1631,7 @@ h5 {
   .slider-track { scroll-behavior: auto; }
 
   .ticker-track,
-  .mumbie-art__side,
-  .hero-art img { animation: none; }
+  .mumbie-art__side { animation: none; }
 }
 
 /* --------------------------------------------------------------- misc --- */
