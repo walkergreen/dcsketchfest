@@ -36,45 +36,194 @@ Then open <http://localhost:4322>. Edit a file, refresh. That's the whole loop.
 
 ## Deploying
 
-Push to `main`. GitHub Pages redeploys in about a minute.
+Push to `main`. GitHub Pages redeploys in about a minute. There is no build
+step and no CI — the committed HTML is what ships.
 
-### First-time setup
+---
 
-1. Create a repo on GitHub and push this folder to it:
+# How everything is set up
 
-   ```bash
-   git init && git add -A && git commit -m "Rebuild dcsketchfest.com off Webflow"
-   git branch -M main
-   git remote add origin git@github.com:YOUR-ORG/dcsketchfest.git
-   git push -u origin main
-   ```
+Five moving parts:
 
-2. In the repo: **Settings → Pages → Source: Deploy from a branch**, branch
-   `main`, folder `/ (root)`.
+1. **GitHub** hosts the files and serves them over HTTPS.
+2. **Squarespace** answers DNS for the domain.
+3. **A Google Sheet** collects mailing-list signups.
+4. **Google Analytics** counts visits.
+5. **Crowdwork** sells the tickets.
 
-3. Point DNS at GitHub. At the registrar (Squarespace Domains), for
-   `dcsketchfest.com`:
+Only the first two are needed to keep the site up, and none of the five costs
+anything monthly (Crowdwork takes its cut per ticket).
 
-   | Type  | Name  | Value                    |
-   |-------|-------|--------------------------|
-   | A     | `@`   | `185.199.108.153`        |
-   | A     | `@`   | `185.199.109.153`        |
-   | A     | `@`   | `185.199.110.153`        |
-   | A     | `@`   | `185.199.111.153`        |
-   | CNAME | `www` | `walkergreen.github.io`  |
+## 1. Hosting — GitHub Pages
 
-   **Leave the MX and TXT records alone** — `admin@dcsketchfest.com` is Google
-   Workspace, and its 5 MX records plus SPF and DMARC live in the same zone.
+Three separate repos, each publishing itself to its own subdomain from `main`,
+folder `/ (root)`. Each repo's `CNAME` file is what claims its hostname.
 
-4. Cancel the Webflow plan **after** the new site is confirmed live.
+| Site | Repo | Serves |
+|------|------|--------|
+| Live site | [`walkergreen/dcsketchfest`](https://github.com/walkergreen/dcsketchfest) | `dcsketchfest.com` |
+| Frozen 2026-brand archive | [`walkergreen/dcsketchfest-2026`](https://github.com/walkergreen/dcsketchfest-2026) | `2026.dcsketchfest.com` |
+| Rebrand scratchpad | [`walkergreen/dcsketchfest-staging`](https://github.com/walkergreen/dcsketchfest-staging) | `staging.dcsketchfest.com` |
+
+All three have a Let's Encrypt certificate issued and **Enforce HTTPS** on.
+The archive and staging sites are `noindex` with a `robots.txt` disallow, so
+they can't compete with the live site in search results.
+
+Settings live at **Settings → Pages** in each repo. The certificate is issued
+automatically once DNS resolves; if it never appears (the domain shows a
+"not secure" warning and HTTPS serves a `*.github.io` certificate), remove the
+custom domain, save, then re-add it — that re-triggers provisioning. That is
+the fix, not a DNS change.
+
+## 2. DNS — Squarespace Domains
+
+`dcsketchfest.com` is registered at **Squarespace Domains** (inherited from
+Google Domains) and uses Google's nameservers. The zone is *not* in any GCP
+project, so records must be edited in the Squarespace panel — there is no API
+path to it.
+
+Current records:
+
+| Type  | Name      | Value                   | Why |
+|-------|-----------|-------------------------|-----|
+| A     | `@`       | `185.199.108.153`       | GitHub Pages |
+| A     | `@`       | `185.199.109.153`       | GitHub Pages |
+| A     | `@`       | `185.199.110.153`       | GitHub Pages |
+| A     | `@`       | `185.199.111.153`       | GitHub Pages |
+| CNAME | `www`     | `walkergreen.github.io` | redirects to the bare domain |
+| CNAME | `2026`    | `walkergreen.github.io` | archive site |
+| CNAME | `staging` | `walkergreen.github.io` | staging site |
+
+Every hostname points at `walkergreen.github.io`; GitHub decides which repo to
+serve by matching the requested hostname against each repo's `CNAME` file. That
+is why adding a new subdomain is two steps: a CNAME here, and a `CNAME` file in
+the repo that should answer it.
+
+> **Never touch the MX or TXT records.** `admin@dcsketchfest.com` is Google
+> Workspace, and its 5 MX records plus the SPF (`v=spf1 include:_spf.google.com
+> ~all`) and DMARC entries live in this same zone. Deleting them takes down
+> festival email, which is a far worse outage than the website being down.
 
 ### Canonical host
 
-The bare domain `dcsketchfest.com` is canonical — that's what the `CNAME` file
-holds, and `www` redirects to it. Every absolute URL in the site (canonical tags,
-`og:url`, `sitemap.xml`, `robots.txt`) points at the bare domain to match; if the
-custom domain is ever switched back to `www`, those need updating too or search
-engines get contradictory signals.
+The bare domain is canonical — that's what `CNAME` holds, and `www` redirects
+to it. Every absolute URL in the site (canonical tags, `og:url`, `sitemap.xml`,
+`robots.txt`) points at the bare domain to match. If the custom domain is ever
+switched to `www`, those all need updating too, or search engines get
+contradictory signals.
+
+## 3. Email marketing — Google Sheet + Apps Script
+
+The signup form on the homepage posts to a Google Apps Script web app, which
+appends a row to a Google Sheet. No Mailchimp, no third-party account, no
+monthly fee, and the list stays in the festival's own Drive.
+
+**This is already wired up and collecting.** The pieces:
+
+| Piece | Where |
+|-------|-------|
+| The form | `index.html`, `<form class="signup">`, its `data-endpoint` holds the `/exec` URL |
+| The script | `tools/mailing-list.gs` — the copy of record; the running copy is pasted into Apps Script |
+| The Sheet | ID `1Ie3SdfTFCmJSqegK4n_zG5mf26puzopWpDWgP-ISiXQ`, tab `Signups` |
+
+Columns are `Timestamp, Email, Name, Source, User agent`. The script validates
+the address, skips duplicates case-insensitively, and takes a lock so two
+simultaneous signups can't overwrite each other. The form carries a honeypot
+field that bots fill and humans never see; those submissions are accepted in
+the UI and silently dropped.
+
+**To send an actual email blast**, export the Sheet (File → Download → CSV) and
+import it into whatever sends the mail. Nothing in this repo sends email.
+
+### If you change the script
+
+Edit `tools/mailing-list.gs` here *and* in Apps Script, then **Deploy → Manage
+deployments → edit → New version**. Without a new version the live URL keeps
+running the old code — the single most common way this quietly stops working.
+
+### If you ever rebuild it from scratch
+
+1. Create a Sheet in the DCSF Google account.
+2. **Extensions → Apps Script**, paste in `tools/mailing-list.gs`, and set
+   `SHEET_ID` to that Sheet's id.
+3. **Deploy → New deployment → Web app**, *Execute as:* **Me**,
+   *Who has access:* **Anyone** — it must be "Anyone", not "Anyone with a
+   Google account", or the form gets a 401 and every signup fails silently.
+4. Authorise it (the "unverified app" warning is expected for your own script:
+   *Advanced → Go to … (unsafe)*).
+5. Put the `/exec` URL into the form's `data-endpoint` in `index.html`.
+
+If `data-endpoint` is ever emptied, the form degrades gracefully: it still
+renders and tells people to email `admin@dcsketchfest.com`.
+
+## 4. Analytics — Google Analytics 4
+
+Measurement ID **`G-5WTXCDDHMK`** (GA4), in the `<head>` of every page —
+homepage, photo album, all three lineup pages, and the 404. Reports are in the
+GA dashboard under the DCSF Google account; nothing is stored in this repo.
+
+Because most pages are generated, the tag lives in **four** places:
+`index.html`, `404.html`, and both generators in `tools/`. It is injected
+through a placeholder rather than pasted inline — see the brace warning under
+[Generated pages](#generated-pages-read-this-before-editing-html).
+
+To verify it is really reporting (rather than just present in the HTML), open
+the site with devtools on the Network tab and look for a request to
+`analytics.google.com/g/collect` carrying `tid=G-5WTXCDDHMK`. The tag being in
+the page source is not proof it fires.
+
+To swap the property, change the ID in all four files and rerun both
+generators.
+
+## 5. Ticketing — Crowdwork
+
+Tickets are **not** sold by this site. They are sold by
+[Crowdwork](https://crowdwork.com), under the theatre handle
+`dcsketchfest`. The homepage embeds Crowdwork's calendar, which pulls shows
+straight from that account:
+
+```html
+<script id="fw_script" src="https://crowdwork.com/embed.js?v=6"
+        data-theatre="dcsketchfest" data-type="shows" data-view="calendar"
+        data-start-date="2027-03-01"></script>
+```
+
+**Shows, prices, and on-sale dates are managed in the Crowdwork account, not
+here.** Publish a show there and it appears on the site by itself; nothing in
+this repo needs a commit for a lineup or on-sale change.
+
+Between festivals that embed is **commented out** in `index.html` and a
+"2027 is coming" panel stands in its place, because an empty calendar looks
+broken. To turn ticketing back on, follow step 2 of
+[Turning the festival back on](#turning-the-festival-back-on): delete the
+`.coming-soon` panel and uncomment the block marked `<!-- TICKETS:`.
+
+Donations are separate and go through Givebutter
+(`givebutter.com/dcsketchfest2027`), linked from the Donate button in the nav.
+
+## Generated pages (read this before editing HTML)
+
+Only `index.html` and `404.html` are hand-maintained. `photos/index.html` and
+every `performers-<year>/index.html` are **generated**, and so is the homepage
+Fest Pics carousel (between the `<!-- GALLERY:start -->` / `<!-- GALLERY:end -->`
+markers).
+
+So a site-wide change — a nav link, the footer, the donate URL, an analytics
+tag — has to be made in **both generators plus the two hand-maintained pages**,
+then the generators rerun:
+
+```bash
+python3 tools/build-lineup.py && python3 tools/build-gallery.py
+```
+
+Editing a generated file directly works until the next rebuild silently
+reverts it.
+
+> **Watch the braces.** `build-lineup.py`'s page template is a `.format()`
+> string and `build-gallery.py`'s is an f-string. Any snippet containing a
+> literal `{` or `}` — the Google Analytics tag, most JavaScript — will be
+> mangled or throw if pasted inline. Define it as a module-level constant and
+> pass it through a placeholder, the way `GA_TAG` is wired.
 
 ## Common edits
 
@@ -166,55 +315,24 @@ When the 2027 dates are public, in order:
    is in git history.
 7. **sitemap.xml** — add the new lineup URL.
 
-## Third-party pieces
+## Third-party pieces at a glance
 
-- **Tickets** — the Crowdwork calendar embed in `index.html`
-  (`crowdwork.com/embed.js`, `data-theatre="dcsketchfest"`), currently commented
-  out. Unchanged from the Webflow site; it pulls shows from the Crowdwork
-  account, so the lineup and on-sale dates are managed there, not here.
-- **Donate** — links to `givebutter.com/dcsketchfest2027`.
-- **Map** — a keyless Google Maps embed iframe.
+Everything the site talks to, and where it is documented:
 
-### Mailing list
+| Piece | Account | Details |
+|-------|---------|---------|
+| Hosting | GitHub | [1. Hosting](#1-hosting--github-pages) |
+| DNS | Squarespace Domains | [2. DNS](#2-dns--squarespace-domains) |
+| Mailing list | Google Sheet + Apps Script | [3. Email marketing](#3-email-marketing--google-sheet--apps-script) |
+| Analytics | Google Analytics 4, `G-5WTXCDDHMK` | [4. Analytics](#4-analytics--google-analytics-4) |
+| Tickets | Crowdwork, `dcsketchfest` | [5. Ticketing](#5-ticketing--crowdwork) |
+| Donations | Givebutter, `dcsketchfest2027` | Donate button in the nav, on every page |
+| Fonts | Google Fonts | Anton + Space Grotesk, loaded per page |
+| Email | Google Workspace | `admin@dcsketchfest.com` — **MX records live in the same DNS zone** |
 
-The signup form on the homepage posts to a Google Apps Script web app, which
-appends a row to a Google Sheet you own. No third-party service, no account, no
-monthly fee — and the data lives in your Drive.
-
-**It needs one 5-minute setup before it collects anything.** Until then the form
-still renders and tells people to email `admin@dcsketchfest.com`.
-
-1. Create a Google Sheet (any name) in the DCSF Google account.
-2. **Extensions → Apps Script**. Delete the placeholder, paste in the contents
-   of [`tools/mailing-list.gs`](tools/mailing-list.gs), and save.
-3. **Deploy → New deployment → Web app**:
-   - *Execute as:* **Me**
-   - *Who has access:* **Anyone** — this must be "Anyone", not "Anyone with a
-     Google account", or the form gets a 401 and every signup silently fails.
-4. Authorise it when prompted (it's your own script; the "unverified app"
-   warning is expected — *Advanced → Go to … (unsafe)*).
-5. Copy the deployment URL — it ends in `/exec`.
-6. In `index.html`, put it in the form's `data-endpoint`:
-
-   ```html
-   <form class="signup" id="signup-form" data-endpoint="https://script.google.com/macros/s/AKfy.../exec">
-   ```
-
-7. Commit, push, and test the live form. A row should appear in the Sheet within
-   a second or two.
-
-**If you edit the script later, Deploy → *Manage deployments* → edit → New
-version.** Without a new version the live URL keeps running the old code — the
-most common way this quietly breaks.
-
-What the script does: validates the address, skips duplicates
-(case-insensitive), takes a lock so simultaneous signups can't overwrite each
-other, and records timestamp, email, name, and which page they signed up from.
-The form has a honeypot field that bots fill and humans never see; those
-submissions are silently dropped.
-
-**Before shutting Webflow down, export the existing signup list** — those
-submissions live in the Webflow dashboard under Forms and are not in this repo.
+**Legacy note:** the pre-rebuild signup list lived in the Webflow dashboard
+under Forms and was never in this repo. Export it before that account lapses if
+it hasn't been exported already — those addresses are not in the Sheet.
 
 ## Notes
 
