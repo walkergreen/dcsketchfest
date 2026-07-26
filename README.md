@@ -47,20 +47,29 @@ Push to `main`. GitHub Pages redeploys in about a minute.
 2. In the repo: **Settings → Pages → Source: Deploy from a branch**, branch
    `main`, folder `/ (root)`.
 
-3. Point DNS at GitHub. At your registrar, for `dcsketchfest.com`:
+3. Point DNS at GitHub. At the registrar (Squarespace Domains), for
+   `dcsketchfest.com`:
 
    | Type  | Name  | Value                    |
    |-------|-------|--------------------------|
-   | CNAME | `www` | `YOUR-ORG.github.io`     |
    | A     | `@`   | `185.199.108.153`        |
    | A     | `@`   | `185.199.109.153`        |
    | A     | `@`   | `185.199.110.153`        |
    | A     | `@`   | `185.199.111.153`        |
+   | CNAME | `www` | `walkergreen.github.io`  |
 
-   The `CNAME` file in this repo already claims `www.dcsketchfest.com`. Once DNS
-   resolves, tick **Enforce HTTPS** in Settings → Pages.
+   **Leave the MX and TXT records alone** — `admin@dcsketchfest.com` is Google
+   Workspace, and its 5 MX records plus SPF and DMARC live in the same zone.
 
 4. Cancel the Webflow plan **after** the new site is confirmed live.
+
+### Canonical host
+
+The bare domain `dcsketchfest.com` is canonical — that's what the `CNAME` file
+holds, and `www` redirects to it. Every absolute URL in the site (canonical tags,
+`og:url`, `sitemap.xml`, `robots.txt`) points at the bare domain to match; if the
+custom domain is ever switched back to `www`, those need updating too or search
+engines get contradictory signals.
 
 ## Common edits
 
