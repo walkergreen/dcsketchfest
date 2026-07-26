@@ -97,16 +97,24 @@ when they're empty.
 **Change colors or type** — the palette is a block of CSS variables at the top of
 `assets/css/style.css`:
 
-| Variable   | Value     | Used for                                  |
-|------------|-----------|-------------------------------------------|
-| `--red`    | `#df3d23` | hero, press, FAQ backgrounds              |
-| `--cream`  | `#f6ede4` | tickets, venue backgrounds; button text   |
-| `--teal`   | `#19647e` | buttons, fest pics, Mumbie, footer        |
-| `--yellow` | `#f4d35e` | navbar pill, testimonials, accents        |
-| `--purple` | `#5541ba` | secondary buttons, testimonial quotes     |
-| `--dark`   | `#211509` | body text, borders                        |
+| Variable   | Value     | Used for                                     |
+|------------|-----------|----------------------------------------------|
+| `--blue`   | `#2b3fbf` | hero, fest pics, Mumbie, lineup page heroes  |
+| `--pink`   | `#ef4d8e` | press + FAQ backgrounds, accents, shadows    |
+| `--yellow` | `#ffc933` | ticker, testimonials, buttons                |
+| `--paper`  | `#f6efe1` | paper backgrounds, navbar, light text        |
+| `--ink`    | `#211b3a` | text, borders, newsletter + footer           |
 
-Fonts are Londrina Solid (display) and Inter (body), loaded from Google Fonts.
+The pre-2027 names (`--red`, `--cream`, `--teal`, `--purple`, `--dark`) are
+aliased onto these inks so older inline styles and generated pages keep
+working — change the new variables, not the aliases.
+
+Fonts are Anton (display) and Space Grotesk (body), loaded from Google Fonts.
+The logo is a text wordmark (`.wordmark`, `DC ★★★ Sketchfest`) rather than an
+image; the old PNG logos remain in `assets/img/brand/` but nothing references
+them. The 2026-brand site is archived at
+[2026.dcsketchfest.com](https://2026.dcsketchfest.com)
+(github.com/walkergreen/dcsketchfest-2026).
 
 ## Turning the festival back on
 
