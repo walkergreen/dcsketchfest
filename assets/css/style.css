@@ -1,0 +1,1063 @@
+/* ==========================================================================
+   DC Sketchfest — site styles
+   Palette and type scale carried over from the 2026 Webflow design.
+   ========================================================================== */
+
+:root {
+  --red: #df3d23;
+  --cream: #f6ede4;
+  --teal: #19647e;
+  --yellow: #f4d35e;
+  --dark: #211509;
+  --purple: #5541ba;
+  --white: #fff;
+
+  --font-display: "Londrina Solid", "Arial Black", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  --shadow-offset: 6px;
+  --radius-pill: 100px;
+  --radius-card: 30px;
+
+  --gutter: 2.5rem;
+  --container: 80rem;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 1.25rem;
+    --shadow-offset: 5px;
+  }
+}
+
+/* --------------------------------------------------------------- base --- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Fixed navbar clearance for in-page anchors. */
+  scroll-padding-top: 8rem;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Fluid versions of the Webflow desktop sizes: 150 / 110 / 90 / 70 / 40 / 30.
+   The vw term drives the small end so headings never outgrow a phone. */
+.h-hero    { font-size: clamp(2.75rem, 12vw, 9.375rem); }
+.h-xl      { font-size: clamp(2.5rem, 9vw, 6.875rem); }
+.h-lg      { font-size: clamp(2.25rem, 8vw, 5.625rem); }
+.h-md      { font-size: clamp(1.875rem, 6.5vw, 4.375rem); }
+.h-sm      { font-size: clamp(1.5rem, 4.5vw, 2.5rem); }
+.h-xs      { font-size: clamp(1.25rem, 3.5vw, 1.875rem); font-weight: 300; }
+
+.text-yellow { color: var(--yellow); }
+.text-teal   { color: var(--teal); }
+.text-white  { color: var(--white); }
+.text-purple { color: var(--purple); }
+.text-center { text-align: center; }
+
+.body-copy {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  line-height: 1.15;
+}
+
+/* ---------------------------------------------------------- structure --- */
+
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.section--red     { background: var(--red); }
+.section--cream   { background: var(--cream); }
+.section--teal    { background: var(--teal); }
+.section--yellow  { background: var(--yellow); }
+
+.pad {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.pad-lg { padding-top: 8rem;    padding-bottom: 8rem; }
+.pad-md { padding-top: 5rem;    padding-bottom: 5rem; }
+.pad-sm { padding-top: 3rem;    padding-bottom: 3rem; }
+
+@media (max-width: 991px) {
+  .pad-lg { padding-top: 6rem; padding-bottom: 6rem; }
+  .pad-md { padding-top: 4rem; padding-bottom: 4rem; }
+  .pad-sm { padding-top: 2rem; padding-bottom: 2rem; }
+}
+
+@media (max-width: 767px) {
+  .pad-lg { padding-top: 4rem; padding-bottom: 4rem; }
+  .pad-md { padding-top: 3rem; padding-bottom: 3rem; }
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.container--md { max-width: 60rem; }
+
+.stack > * + * { margin-top: 1.5rem; }
+.stack-sm > * + * { margin-top: .75rem; }
+
+/* ------------------------------------------------------------ buttons --- */
+
+/* Every button is a pill sitting on a solid black "sticker" shadow that
+   collapses on hover — the signature interaction from the old site. */
+.btn {
+  --btn-bg: var(--teal);
+  --btn-fg: var(--cream);
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-pill);
+  background: #000;
+  transform: translate(var(--shadow-offset), var(--shadow-offset));
+  transition: transform .2s ease;
+  z-index: -1;
+}
+
+.btn > span {
+  display: block;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 3px solid var(--cream);
+  border-radius: var(--radius-pill);
+  padding: .9rem 1.75rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translate(0, 0);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--dark);
+  outline-offset: 4px;
+  border-radius: var(--radius-pill);
+}
+
+.btn--purple { --btn-bg: var(--purple); }
+.btn--yellow { --btn-bg: var(--yellow); --btn-fg: var(--dark); }
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+/* On phones a nowrap pill is wider than the screen, so let the label wrap. */
+@media (max-width: 560px) {
+  .btn > span {
+    white-space: normal;
+    padding: .75rem 1.25rem;
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .btn-row { gap: .875rem; }
+}
+
+/* ---------------------------------------------------------------- nav --- */
+
+.navbar {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding-inline: var(--gutter);
+}
+
+.nav-inner {
+  position: relative;
+  width: 100%;
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
+.nav-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6.25rem;
+  background: #000;
+  transform: translate(var(--shadow-offset), var(--shadow-offset));
+}
+
+.nav-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  background: var(--yellow);
+  border: 3px solid #000;
+  border-radius: 6.25rem;
+  padding: .75rem 1.25rem .75rem 2rem;
+}
+
+.brand img {
+  height: 50px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.nav-link {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.875rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--dark);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.nav-link:hover,
+.nav-link[aria-current="page"] {
+  color: var(--red);
+}
+
+/* Hamburger — only rendered on tablet and below. */
+.nav-toggle {
+  display: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 3px solid #000;
+  border-radius: 50%;
+  background: var(--cream);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.nav-donate-desktop { flex: none; }
+
+@media (max-width: 991px) {
+  .nav-toggle { display: flex; }
+  .nav-donate-desktop { display: none; }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 1.25rem;
+    background: var(--yellow);
+    border: 3px solid #000;
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 #000;
+    display: none;
+  }
+
+  .nav-links.is-open { display: flex; }
+  .nav-bar { padding-right: .75rem; }
+}
+
+/* --------------------------------------------------------------- hero --- */
+
+.hero {
+  position: relative;
+  background: var(--red);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 9rem;
+  padding-bottom: 5rem;
+  width: 100%;
+}
+
+.hero h1 {
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.hero-meta {
+  color: var(--dark);
+  margin-bottom: 2.5rem;
+}
+
+.hero-art {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-art img {
+  position: absolute;
+  width: auto;
+}
+
+.hero-art .art-tumbler {
+  top: 6%;
+  right: -2%;
+  height: 32vh;
+  transform: rotate(-8deg);
+}
+
+.hero-art .art-striped {
+  bottom: 4%;
+  right: 3%;
+  height: 48vh;
+}
+
+.hero-art .art-side {
+  bottom: 12%;
+  left: -3%;
+  height: 30vh;
+  transform: rotate(6deg);
+}
+
+@media (max-width: 991px) {
+  .hero-art .art-tumbler { height: 22vh; top: 9%; right: -8%; }
+  .hero-art .art-striped { height: 30vh; right: -5%; }
+  .hero-art .art-side    { height: 22vh; left: -10%; }
+}
+
+@media (max-width: 767px) {
+  .hero-art { opacity: .35; }
+  .hero-content { padding-top: 8rem; }
+}
+
+/* ------------------------------------------------------------ tickets --- */
+
+.tickets-heading {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Stands in for the ticket calendar between festivals. */
+.coming-soon {
+  text-align: center;
+  border: 3px solid var(--dark);
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  border-bottom-left-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+  background: var(--yellow);
+  padding: 4rem 2rem 3rem;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 #000;
+}
+
+.coming-soon .body-copy {
+  margin: 1.5rem auto 2rem;
+  max-width: 34rem;
+}
+
+@media (max-width: 767px) {
+  .coming-soon {
+    padding: 2.5rem 1.25rem 2rem;
+    border-top-left-radius: 120px;
+    border-top-right-radius: 120px;
+  }
+}
+
+/* Marks the 2026 lineup page as a past festival. */
+.archive-note {
+  border: 3px solid var(--cream);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.25;
+  color: var(--cream);
+}
+
+.archive-note a { color: var(--yellow); }
+
+/* The Crowdwork calendar injects its own markup. Its month grid has a minimum
+   width that is wider than a phone, so it scrolls inside this box rather than
+   stretching the whole document. */
+.crowdwork-embed {
+  min-height: 320px;
+  margin-inline: auto;
+  max-width: var(--container);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crowdwork-embed:empty::after {
+  content: "Loading the show calendar…";
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--dark);
+  opacity: .6;
+  padding: 4rem 1rem;
+}
+
+/* -------------------------------------------------------- lineup call --- */
+
+.lineup-call {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .lineup-call {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+}
+
+.shaped-frame-wrap {
+  position: relative;
+}
+
+/* Loose food art tucked behind the bottom-left corner of the frame. */
+.food-strawberry {
+  position: absolute;
+  left: -1.5rem;
+  bottom: -2.5rem;
+  width: 7rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .food-strawberry { width: 4.5rem; left: -.5rem; bottom: -1.5rem; }
+}
+
+/* Yellow shaped frame holding the Mumbie sash art. */
+.shaped-frame {
+  position: relative;
+  z-index: 2;
+  border: 3px solid var(--dark);
+  border-top-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+  background-color: var(--yellow);
+  background-image: url("../img/shapes/background-shape.webp");
+  background-position: 50%;
+  background-size: 220px;
+  background-repeat: repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem;
+  min-height: 22rem;
+}
+
+.shaped-frame img {
+  width: 100%;
+  max-width: 12rem;
+  transform: rotate(-26deg);
+}
+
+.food-blueberries {
+  position: absolute;
+  right: -2rem;
+  bottom: -4rem;
+  width: 12rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.food-blob {
+  display: block;
+  width: min(100%, 22rem);
+  margin: -2rem auto 0;
+}
+
+@media (max-width: 767px) {
+  .food-blueberries { width: 7rem; right: -1rem; bottom: -2rem; }
+}
+
+/* ------------------------------------------------------------ sliders --- */
+
+.slider {
+  position: relative;
+  padding-bottom: 4.5rem;
+}
+
+.slider-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: .5rem;
+}
+
+.slider-track::-webkit-scrollbar { display: none; }
+
+.slider-track > * {
+  flex: 0 0 calc(50% - .625rem);
+  scroll-snap-align: start;
+}
+
+@media (max-width: 767px) {
+  .slider-track > * { flex: 0 0 100%; }
+}
+
+.slide-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 450px;
+  border: 2px solid var(--dark);
+  border-radius: 50px;
+  background-color: var(--cream);
+  background-position: 50%;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.slide-card--quote {
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.slide-card__quote {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: none;
+  color: var(--purple);
+  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.slide-card__name {
+  font-family: var(--font-body);
+  font-weight: 400;
+  text-transform: none;
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  color: var(--white);
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .55);
+}
+
+.slide-card--quote .slide-card__name {
+  color: var(--dark);
+  text-shadow: none;
+}
+
+.slide-card__team {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--dark);
+  opacity: .75;
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: .75rem;
+}
+
+.slider-btn {
+  width: 3rem;
+  height: 3rem;
+  padding: .6rem;
+  border: 2px solid var(--dark);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--dark);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .2s ease;
+}
+
+.slider-btn:hover { transform: scale(1.08); }
+
+.slider-btn:disabled {
+  opacity: .35;
+  cursor: default;
+  transform: none;
+}
+
+.slider-btn svg { width: 100%; height: 100%; }
+
+.slider-credit {
+  margin-top: 1rem;
+  font-family: var(--font-body);
+  color: var(--white);
+  font-size: .95rem;
+}
+
+/* ---------------------------------------------------------- press bit --- */
+
+.press-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .press-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+.press-copy .body-copy {
+  color: var(--dark);
+  margin-top: 1.5rem;
+}
+
+/* The yellow blob sits outside the photo's clipping box, so it needs its own
+   positioning wrapper — the frame itself clips to the arch shape. */
+.press-photo-wrap {
+  position: relative;
+}
+
+.press-photo {
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--dark);
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  overflow: hidden;
+}
+
+.press-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.press-shape {
+  position: absolute;
+  top: -3.5rem;
+  left: -4.5rem;
+  z-index: 0;
+  width: 14rem;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .press-shape { width: 8rem; top: -2rem; left: -1.5rem; }
+}
+
+/* -------------------------------------------------------------- venue --- */
+
+.venue-map {
+  border: 3px solid var(--dark);
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  margin-top: 2.5rem;
+}
+
+.venue-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ------------------------------------------------------------- mumbie --- */
+
+.mumbie-art {
+  position: relative;
+  margin: 3rem auto;
+  max-width: 40rem;
+}
+
+.mumbie-art__main {
+  width: 100%;
+  max-width: 25rem;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.mumbie-art__side {
+  position: absolute;
+  bottom: 0;
+  width: 9rem;
+}
+
+.mumbie-art__side--left  { left: 0; width: 6rem; }
+.mumbie-art__side--mid   { left: 22%; bottom: -1rem; width: 5rem; }
+.mumbie-art__side--right { right: 0; }
+
+@media (max-width: 767px) {
+  .mumbie-art__side { width: 5rem; }
+  .mumbie-art__side--left { width: 3.75rem; }
+  .mumbie-art__side--mid  { width: 3.25rem; left: 18%; }
+}
+
+/* ---------------------------------------------------------------- faq --- */
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .faq-layout { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-card);
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.faq-item summary {
+  position: relative;
+  display: block;
+  padding: 1rem 3.5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #222;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -.75rem;
+  background: #a39383;
+  transition: transform .3s ease;
+  clip-path: polygon(43% 0, 57% 0, 57% 43%, 100% 43%, 100% 57%, 57% 57%, 57% 100%, 43% 100%, 43% 57%, 0 57%, 0 43%, 43% 43%);
+}
+
+.faq-item[open] summary::after { transform: rotate(45deg); }
+
+.faq-item .faq-answer {
+  padding: 0 1.5rem 1.25rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--dark);
+}
+
+/* --------------------------------------------------------- newsletter --- */
+
+.form-embed {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.form-embed iframe {
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--cream);
+  display: block;
+}
+
+/* Shown until a Google Form URL is configured; see README. */
+.form-fallback {
+  border: 3px dashed var(--cream);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  text-align: center;
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.form-fallback a { color: var(--yellow); }
+
+.link {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------- footer --- */
+
+.footer {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+.footer-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-logo img {
+  width: min(18rem, 60vw);
+}
+
+.footer-social {
+  text-align: right;
+}
+
+.footer-social .join-us {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: flex-end;
+}
+
+.social-links a {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+.social-links a:hover { text-decoration: underline; }
+
+@media (max-width: 767px) {
+  .footer-wrapper { flex-direction: column; text-align: center; }
+  .footer-social { text-align: center; }
+  .social-links { justify-content: center; }
+}
+
+/* ------------------------------------------------------- lineup page --- */
+
+.lineup-hero {
+  background: var(--red);
+  padding-top: 11rem;
+}
+
+.performer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 2rem;
+}
+
+.performer-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.performer-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  background: var(--white);
+}
+
+.performer-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  padding: 1rem 1.25rem 1.5rem;
+}
+
+.performer-card__name {
+  font-size: 1.375rem;
+  line-height: 1.1;
+}
+
+.performer-card__city {
+  font-family: var(--font-body);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.performer-card__blurb {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.lineup-section {
+  background-color: var(--cream);
+  background-image: url("../img/shapes/shape.svg");
+  background-position: 110% 110%;
+  background-repeat: no-repeat;
+  background-size: 200px;
+}
+
+/* ---------------------------------------------------------------- 404 --- */
+
+.error-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: var(--red);
+  padding: 2rem;
+}
+
+/* ------------------------------------------------------- scroll reveal --- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .slider-track { scroll-behavior: auto; }
+}
+
+/* --------------------------------------------------------------- misc --- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--yellow);
+  color: var(--dark);
+  padding: 1rem 1.5rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
