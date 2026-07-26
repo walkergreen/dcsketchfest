@@ -16,6 +16,10 @@
  * the old code — the single most common way this silently stops working.
  */
 
+// The DC Sketchfest mailing list Sheet. Pinned by ID so this works whether the
+// script is bound to the Sheet or standalone. To point it somewhere else, swap
+// the ID from that Sheet's URL: /spreadsheets/d/<ID>/edit
+var SHEET_ID = '1Ie3SdfTFCmJSqegK4n_zG5mf26puzopWpDWgP-ISiXQ';
 var SHEET_NAME = 'Signups';
 var HEADERS = ['Timestamp', 'Email', 'Name', 'Source', 'User agent'];
 
@@ -59,7 +63,9 @@ function doGet() {
 }
 
 function getSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SHEET_ID
+    ? SpreadsheetApp.openById(SHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
