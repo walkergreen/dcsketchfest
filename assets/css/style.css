@@ -446,9 +446,16 @@ h5 {
   margin-bottom: 1.75rem;
 }
 
+/* Yellow on cobalt is fine, but yellow over the orange characters is not —
+   the ink outline keeps this line readable wherever the art lands. */
 .hero-meta {
   color: var(--yellow);
   margin-bottom: 2.75rem;
+  text-shadow:
+    3px 3px 0 var(--ink),
+    -2px -2px 0 var(--ink),
+    2px -2px 0 var(--ink),
+    -2px 2px 0 var(--ink);
 }
 
 /* Rotated year sticker pinned beside the wordmark. */
@@ -500,23 +507,33 @@ h5 {
   transform: rotate(-8deg);
 }
 
+/* Tucked toward the bezel and low, so the centred headline column stays
+   clear of it — this one used to cut across "…this fall". */
 .hero-art .art-striped {
-  bottom: 4%;
-  right: 3%;
-  height: 48vh;
+  bottom: -1%;
+  right: -5%;
+  height: 44vh;
 }
 
 .hero-art .art-side {
-  bottom: 12%;
-  left: -3%;
-  height: 30vh;
+  bottom: 8%;
+  left: -5%;
+  height: 28vh;
   transform: rotate(6deg);
 }
 
+/* Between tablet and desktop the headline is at its widest relative to the
+   viewport, so the side art has to move further out still. */
+@media (max-width: 1300px) {
+  .hero-art .art-tumbler { right: -6%; height: 28vh; }
+  .hero-art .art-striped { right: -9%; height: 38vh; }
+  .hero-art .art-side    { left: -8%; height: 24vh; }
+}
+
 @media (max-width: 991px) {
-  .hero-art .art-tumbler { height: 22vh; top: 9%; right: -8%; }
-  .hero-art .art-striped { height: 30vh; right: -5%; }
-  .hero-art .art-side    { height: 22vh; left: -10%; }
+  .hero-art .art-tumbler { height: 22vh; top: 9%; right: -10%; }
+  .hero-art .art-striped { height: 30vh; right: -10%; }
+  .hero-art .art-side    { height: 22vh; left: -12%; }
 }
 
 @media (max-width: 767px) {
