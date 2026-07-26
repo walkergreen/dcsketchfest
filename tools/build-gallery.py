@@ -16,7 +16,8 @@ MANIFEST = ROOT / "assets/lineups/gallery.json"
 YEARS = {
     "2026": {"dates": "March 25–28, 2026", "venue": "The DC Arts Center"},
     "2025": {"dates": "March 26–29, 2025", "venue": "The DC Arts Center"},
-    "2024": {"dates": "March 20–23, 2024", "venue": "The DC Arts Center"},
+    "2024": {"dates": "March 20–23, 2024",
+             "venue": "The DC Improv and The DC Arts Center"},
 }
 
 # Homepage carousel, in order. Named rather than indexed so reprocessing the
@@ -226,16 +227,17 @@ def main():
 
     index = ROOT / "index.html"
     text = index.read_text()
-    new = re.sub(
+    new, count = re.subn(
         r"(<!-- GALLERY:start -->\n)(.*?)(\s*<!-- GALLERY:end -->)",
         lambda m: m.group(1) + build_carousel(manifest) + m.group(3),
         text,
         flags=re.S,
     )
-    if new == text:
+    if not count:
         raise SystemExit("GALLERY markers not found in index.html")
     index.write_text(new)
-    print("updated index.html carousel")
+    print("updated index.html carousel"
+          if new != text else "index.html carousel already current")
 
 
 if __name__ == "__main__":
