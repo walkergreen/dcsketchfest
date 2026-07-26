@@ -256,7 +256,7 @@ h5 {
    stars straight off the DC flag. */
 .wordmark {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: .45rem;
   font-family: var(--font-display);
   text-transform: uppercase;
@@ -266,6 +266,18 @@ h5 {
   white-space: nowrap;
 }
 
+/* The DC flag itself — three stars over two bars — drawn at the wordmark's
+   cap height and inheriting its color. */
+.wordmark-flag {
+  width: 1.5em;
+  height: 1em;
+  flex: none;
+  align-self: center;
+  fill: var(--pink);
+  overflow: visible;
+}
+
+/* Retained so any cached page still rendering the old ★★★ span looks right. */
 .wordmark-stars {
   color: var(--pink);
   font-size: .62em;
@@ -574,9 +586,11 @@ h5 {
 }
 
 .coming-soon .body-copy {
-  margin: 1.5rem auto 2rem;
+  margin: 1.5rem auto 0;
   max-width: 34rem;
 }
+
+.coming-soon .btn-row { margin-top: 2rem; }
 
 @media (max-width: 767px) {
   .coming-soon { padding: 2.5rem 1.25rem 2rem; }
@@ -722,10 +736,16 @@ h5 {
   pointer-events: none;
 }
 
+/* Sits between two sections purely as a flourish — kept small and pulled
+   tight so it doesn't push the next section below the fold. */
 .food-blob {
   display: block;
-  width: min(100%, 22rem);
-  margin: -2rem auto 0;
+  width: min(55%, 13rem);
+  margin: -5rem auto -2rem;
+}
+
+@media (max-width: 767px) {
+  .food-blob { width: min(45%, 8rem); margin: -2rem auto -1.5rem; }
 }
 
 @media (max-width: 767px) {
@@ -1175,6 +1195,12 @@ h5 {
 
 .footer-logo {
   text-decoration: none;
+}
+
+/* The rebrand dropped the footer logo image, but a browser holding a cached
+   copy of the old markup would render it at full natural size. Keep it sized. */
+.footer-logo img {
+  width: min(14rem, 45vw);
 }
 
 .footer-logo .wordmark {
