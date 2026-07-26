@@ -440,7 +440,40 @@ h5 {
   }
 }
 
-/* Marks the 2026 lineup page as a past festival. */
+/* Year switcher on the lineup pages. */
+.year-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .625rem;
+  margin-top: 1.5rem;
+}
+
+.year-link {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  border: 3px solid var(--cream);
+  border-radius: var(--radius-pill);
+  padding: .5rem 1.25rem;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.year-link:hover {
+  background: var(--cream);
+  color: var(--red);
+}
+
+.year-link.is-current {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--dark);
+}
+
+/* Marks a lineup page as a past festival. */
 .archive-note {
   border: 3px solid var(--cream);
   border-radius: var(--radius-card);
@@ -872,6 +905,91 @@ h5 {
 
 .form-fallback a { color: var(--yellow); }
 
+/* ------------------------------------------------------ signup form --- */
+
+.signup {
+  max-width: 40rem;
+  margin: 2.5rem auto 0;
+}
+
+.signup-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+}
+
+.signup-input {
+  flex: 1 1 14rem;
+  min-width: 0;
+  min-height: 4rem;
+  border: 2px solid var(--dark);
+  border-radius: 40px;
+  background: var(--cream);
+  color: var(--dark);
+  text-align: center;
+  padding: .5rem 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.signup-input::placeholder {
+  color: var(--dark);
+  opacity: .5;
+}
+
+.signup-input:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.signup-input[aria-invalid="true"] {
+  border-color: var(--red);
+  background: #fff3f1;
+}
+
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.signup-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.signup-submit {
+  display: block;
+  margin-inline: auto;
+}
+
+.signup-submit[disabled] {
+  opacity: .6;
+  pointer-events: none;
+}
+
+.signup-status {
+  min-height: 1.5rem;
+  margin: 1.25rem 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--cream);
+}
+
+.signup-status.is-error { color: var(--yellow); }
+
+.signup-note {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--cream);
+}
+
+.signup-note a,
+.signup-status a { color: var(--yellow); }
+
 .link {
   color: var(--yellow);
   text-decoration: underline;
@@ -951,11 +1069,17 @@ h5 {
   overflow: hidden;
 }
 
+/* Fill the frame rather than pad to it — these photos arrive in every ratio
+   from square headshots to wide stage shots, and `contain` left white bars
+   inside the card outline. Biased slightly above centre so faces survive the
+   crop on group shots and portraits alike. */
 .performer-card img {
   width: 100%;
-  height: 250px;
-  object-fit: contain;
-  background: var(--white);
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  object-position: center 30%;
+  background: var(--cream);
 }
 
 .performer-card__body {

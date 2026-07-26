@@ -55,7 +55,7 @@
 
       <nav id="nav-links" class="nav-links" aria-label="Main">
         <a class="nav-link" href="#about-section">2027</a>
-        <a class="nav-link" href="/performers-2026/">Past Lineup</a>
+        <a class="nav-link" href="/performers-2026/">Past Lineups</a>
         <a class="nav-link" href="#faq-section">FAQ</a>
         <a class="nav-link" href="mailto:admin@dcsketchfest.com?subject=Question">Contact</a>
       </nav>
@@ -366,20 +366,36 @@
       <h2 class="h-xl text-white">Join <span class="text-yellow">DCSF</span></h2>
       <h3 class="h-xs text-white" style="margin-top:1.5rem">Sign up and we&rsquo;ll email you the 2027 dates the moment they&rsquo;re set</h3>
 
-      <div class="form-embed" style="margin-top:2.5rem">
-        <!-- SIGNUP FORM
-             Paste the Google Form embed URL below (Send → <> → copy the src),
-             then delete the .form-fallback block underneath.
-             <iframe src="https://docs.google.com/forms/d/e/FORM_ID/viewform?embedded=true"
-                     height="700" title="DC Sketchfest mailing list signup">Loading…</iframe>
-        -->
-        <div class="form-fallback">
-          Mailing list signup coming soon.<br>
-          In the meantime, email <a href="mailto:admin@dcsketchfest.com?subject=Add%20me%20to%20the%20DCSF%20list">admin@dcsketchfest.com</a>
-          to be added to the list, or follow
-          <a href="https://instagram.com/dcsketchfest" target="_blank" rel="noopener">@dcsketchfest</a>.
+      <!-- Signup posts to a Google Apps Script web app that appends a row to a
+           Sheet. Paste the deployment URL into data-endpoint — see README
+           ("Mailing list"). While it is empty the form degrades to a mailto. -->
+      <form class="signup" id="signup-form" data-endpoint="" novalidate>
+        <div class="signup-row">
+          <label class="visually-hidden" for="signup-name">Your name</label>
+          <input class="signup-input" id="signup-name" name="name" type="text"
+                 placeholder="Your name (optional)" autocomplete="name" maxlength="120">
+
+          <label class="visually-hidden" for="signup-email">Your email</label>
+          <input class="signup-input" id="signup-email" name="email" type="email"
+                 placeholder="you@email.com" autocomplete="email" maxlength="200" required>
         </div>
-      </div>
+
+        <!-- Bots fill hidden fields; humans never see this one. -->
+        <div class="signup-trap" aria-hidden="true">
+          <label for="signup-company">Company</label>
+          <input id="signup-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn btn--yellow signup-submit" type="submit"><span>Keep me posted</span></button>
+
+        <p class="signup-status" role="status" aria-live="polite"></p>
+
+        <noscript>
+          <p class="signup-note">Email
+            <a href="mailto:admin@dcsketchfest.com?subject=Add%20me%20to%20the%20DCSF%20list">admin@dcsketchfest.com</a>
+            to join the list.</p>
+        </noscript>
+      </form>
     </div>
   </div>
 

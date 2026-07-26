@@ -6,18 +6,19 @@ is on the `main` branch is what's live.
 
 **Current state: between festivals.** The site is framed around "back in 2027,
 dates announced this fall." There are no tickets on sale and no 2027 lineup; the
-2026 lineup stays up as an archive. See [Turning the festival back on](#turning-the-festival-back-on)
-when dates are set.
+2026, 2025 and 2024 lineups stay up as an archive. See
+[Turning the festival back on](#turning-the-festival-back-on) when dates are set.
 
 ```
 index.html                  home page
-performers-2026/index.html  the lineup (generated — see below)
+performers-<year>/index.html  lineup pages (generated — see below)
 404.html                    not-found page
 assets/css/style.css        all styles
 assets/js/main.js           mobile nav, sliders, scroll reveals
 assets/img/                 all images (nothing loads from Webflow's CDN)
-assets/performers.json      lineup data
-tools/build-lineup.py       regenerates the lineup page from that JSON
+assets/lineups/<year>.json  lineup data, one file per festival
+tools/build-lineup.py       regenerates the lineup pages from that JSON
+tools/mailing-list.gs       Apps Script for the signup form (deploy separately)
 CNAME                       custom domain for GitHub Pages
 ```
 
@@ -76,16 +77,22 @@ engines get contradictory signals.
 **Change dates, venue, FAQ answers, testimonials** — edit `index.html`. Each
 section is marked with a comment banner (`<!-- ==== faq ==== -->` and so on).
 
-**Change the lineup** — edit `assets/performers.json`, then:
+**Change a lineup, or add a year** — lineups live in `assets/lineups/<year>.json`,
+one file per festival (2026, 2025, 2024). Edit one, or drop in a new
+`2027.json`, then:
 
 ```bash
 python3 tools/build-lineup.py
 ```
 
-That rewrites `performers-2026/index.html`. Commit both files. Performer images
-live in `assets/img/performers/`; the `local` field in the JSON points at one.
-(The 2026 page is an archive now — see [Turning the festival back on](#turning-the-festival-back-on)
-for building a 2027 page alongside it.)
+That rewrites every `performers-<year>/index.html` and rebuilds the year
+switcher from whatever files exist, so a new year needs no template edits — just
+add its dates and venue to the `YEARS` dict at the top of the script. Commit the
+JSON and the generated HTML together.
+
+Performer images live in `assets/img/performers-<year>/`; the `local` field in
+each entry points at one. `city` and `link` are optional — cards drop the line
+when they're empty.
 
 **Change colors or type** — the palette is a block of CSS variables at the top of
 `assets/css/style.css`:
@@ -117,10 +124,11 @@ When the 2027 dates are public, in order:
 4. **Venue** — the `#where-section` copy currently says the 2027 venue is
    confirmed with the dates. Once it's locked, change the heading back to
    `We're back at`.
-5. **Lineup** — put the new teams in `assets/performers.json`, change `OUT` in
-   `tools/build-lineup.py` to `performers-2027/index.html`, drop the
-   `.archive-note` paragraph from the template, and run it. Keep
-   `performers-2026/` in place as the archive and relabel the nav link.
+5. **Lineup** — add the new teams as `assets/lineups/2027.json`, add a `"2027"`
+   entry to the `YEARS` dict in `tools/build-lineup.py`, and run it. The page and
+   the year switcher build themselves; earlier years stay put as the archive.
+   Drop the `.archive-note` paragraph from the template once 2027 is current, and
+   point the nav's `Past Lineups` link at `/performers-2026/`.
 6. **Structured data** — swap the `Organization` JSON-LD block in `index.html`
    back to a `Festival` block with `startDate`/`endDate`/`location`. The old one
    is in git history.
@@ -135,19 +143,43 @@ When the 2027 dates are public, in order:
 - **Donate** — links to `givebutter.com/dcsketchfest2026`.
 - **Map** — a keyless Google Maps embed iframe.
 
-### Mailing list signup — not wired up yet
+### Mailing list
 
-The Webflow form is gone (Webflow was collecting those submissions). The
-newsletter section currently shows a placeholder pointing people at
-`admin@dcsketchfest.com`.
+The signup form on the homepage posts to a Google Apps Script web app, which
+appends a row to a Google Sheet you own. No third-party service, no account, no
+monthly fee — and the data lives in your Drive.
 
-To switch it to a Google Form:
+**It needs one 5-minute setup before it collects anything.** Until then the form
+still renders and tells people to email `admin@dcsketchfest.com`.
 
-1. Build the form in Google Forms (Name + Email). Responses land in a Sheet.
-2. **Send → `<>` (embed)** and copy the `src` URL.
-3. In `index.html`, find the `<!-- SIGNUP FORM` comment in the newsletter
-   section, uncomment the `<iframe>`, paste your URL in, and delete the
-   `<div class="form-fallback">` block below it.
+1. Create a Google Sheet (any name) in the DCSF Google account.
+2. **Extensions → Apps Script**. Delete the placeholder, paste in the contents
+   of [`tools/mailing-list.gs`](tools/mailing-list.gs), and save.
+3. **Deploy → New deployment → Web app**:
+   - *Execute as:* **Me**
+   - *Who has access:* **Anyone** — this must be "Anyone", not "Anyone with a
+     Google account", or the form gets a 401 and every signup silently fails.
+4. Authorise it when prompted (it's your own script; the "unverified app"
+   warning is expected — *Advanced → Go to … (unsafe)*).
+5. Copy the deployment URL — it ends in `/exec`.
+6. In `index.html`, put it in the form's `data-endpoint`:
+
+   ```html
+   <form class="signup" id="signup-form" data-endpoint="https://script.google.com/macros/s/AKfy.../exec">
+   ```
+
+7. Commit, push, and test the live form. A row should appear in the Sheet within
+   a second or two.
+
+**If you edit the script later, Deploy → *Manage deployments* → edit → New
+version.** Without a new version the live URL keeps running the old code — the
+most common way this quietly breaks.
+
+What the script does: validates the address, skips duplicates
+(case-insensitive), takes a lock so simultaneous signups can't overwrite each
+other, and records timestamp, email, name, and which page they signed up from.
+The form has a honeypot field that bots fill and humans never see; those
+submissions are silently dropped.
 
 **Before shutting Webflow down, export the existing signup list** — those
 submissions live in the Webflow dashboard under Forms and are not in this repo.

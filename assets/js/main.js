@@ -52,6 +52,76 @@
     sync();
   });
 
+  /* --------------------------------------------------------- signup form */
+
+  var signup = document.getElementById("signup-form");
+
+  if (signup) {
+    var status = signup.querySelector(".signup-status");
+    var email = signup.querySelector("#signup-email");
+    var submit = signup.querySelector(".signup-submit");
+    var MAILTO = "mailto:admin@dcsketchfest.com?subject=Add%20me%20to%20the%20DCSF%20list";
+
+    function say(message, isError) {
+      status.innerHTML = message;
+      status.classList.toggle("is-error", !!isError);
+    }
+
+    signup.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var endpoint = signup.getAttribute("data-endpoint");
+      var address = email.value.trim();
+
+      // Deliberately loose: the server is the real validator, and clever
+      // regexes reject more valid addresses than they catch bad ones.
+      if (!address || address.indexOf("@") < 1 || address.lastIndexOf(".") < address.indexOf("@")) {
+        email.setAttribute("aria-invalid", "true");
+        email.focus();
+        say("That email doesn't look right — mind checking it?", true);
+        return;
+      }
+      email.removeAttribute("aria-invalid");
+
+      // Silently accept honeypot submissions so bots don't learn to adapt.
+      if (signup.querySelector("#signup-company").value) {
+        say("Thanks! You're on the list.");
+        signup.reset();
+        return;
+      }
+
+      if (!endpoint) {
+        say('Signup isn\'t wired up yet — email <a href="' + MAILTO + '">admin@dcsketchfest.com</a> and we\'ll add you.', true);
+        return;
+      }
+
+      submit.setAttribute("disabled", "disabled");
+      say("Adding you…");
+
+      // text/plain keeps this a "simple" request, so the browser skips the
+      // CORS preflight that Apps Script web apps do not answer.
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: signup.querySelector("#signup-name").value.trim(),
+          email: address,
+          source: location.pathname
+        })
+      })
+        .then(function (res) { return res.json().catch(function () { return { ok: res.ok }; }); })
+        .then(function (data) {
+          if (data && data.ok === false) throw new Error(data.error || "rejected");
+          say("You're on the list! We'll email you when 2027 dates drop.");
+          signup.reset();
+        })
+        .catch(function () {
+          say('Something went wrong — email <a href="' + MAILTO + '">admin@dcsketchfest.com</a> and we\'ll add you.', true);
+        })
+        .then(function () { submit.removeAttribute("disabled"); });
+    });
+  }
+
   /* ------------------------------------------------------ scroll reveals */
 
   var revealables = document.querySelectorAll(".reveal");
