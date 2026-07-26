@@ -40,12 +40,24 @@ YEARS = {
              "venue": "The DC Improv and The DC Arts Center"},
 }
 
+GA_TAG = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5WTXCDDHMK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5WTXCDDHMK');
+</script>
+"""
+
 PAGE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{year} Lineup - DC Sketchfest</title>
+
+{ga}<title>{year} Lineup - DC Sketchfest</title>
 <meta name="description" content="The {count} sketch comedy teams who performed at DC Sketchfest {year}.">
 
 <meta property="og:type" content="website">
@@ -205,6 +217,7 @@ def main() -> None:
         out = ROOT / ("performers-%s" % year) / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(PAGE.format(
+            ga=GA_TAG,
             year=year,
             newest=available[0],
             count=len(performers),

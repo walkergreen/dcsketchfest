@@ -35,6 +35,17 @@ CAROUSEL = [
     ("2026", "Etch A Sketch"),
 ]
 
+GA_TAG = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5WTXCDDHMK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5WTXCDDHMK');
+</script>
+"""
+
 NAV = """      <nav id="nav-links" class="nav-links" aria-label="Main">
         <a class="nav-link" href="/#about-section">2027</a>
         <a class="nav-link" href="/performers-2026/">Past Lineups</a>
@@ -120,7 +131,8 @@ def album_page(manifest) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Photo Album - DC Sketchfest</title>
+
+{GA_TAG}<title>Photo Album - DC Sketchfest</title>
 <meta name="description" content="Photos from DC Sketchfest 2026, 2025 and 2024 — {total} shots from the District's sketch comedy festival, by Mikail Faalasli.">
 
 <meta property="og:type" content="website">
