@@ -1333,6 +1333,167 @@ h5 {
   background-size: 26px 26px;
 }
 
+/* -------------------------------------------------------- photo album --- */
+
+.album-year + .album-year { margin-top: 4.5rem; }
+
+.album-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5rem 1.25rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--border);
+}
+
+.album-meta {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--ink);
+  opacity: .75;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1.25rem;
+}
+
+/* Each tile is a button so the lightbox is reachable by keyboard. */
+.photo-tile {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  background: var(--white);
+  box-shadow: 4px 4px 0 var(--ink);
+  overflow: hidden;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.photo-tile:hover,
+.photo-tile:focus-visible {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.photo-tile:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
+.photo-tile img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-tile__name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.75rem .875rem .625rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--white);
+  background: linear-gradient(transparent, rgba(33, 27, 58, .85));
+}
+
+/* ---------------------------------------------------------- lightbox --- */
+
+.lightbox[hidden] { display: none; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(33, 27, 58, .94);
+}
+
+.lightbox__figure {
+  margin: 0;
+  max-width: min(100%, 68rem);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .875rem;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  margin-inline: auto;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  background: var(--ink);
+}
+
+.lightbox__caption {
+  text-align: center;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: 1.15rem;
+  color: var(--paper);
+}
+
+.lightbox__close,
+.lightbox__nav {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: var(--border);
+  border-radius: 12px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--pink);
+  color: var(--white);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+@media (max-width: 767px) {
+  .lightbox { padding: 1rem; gap: .5rem; }
+  .lightbox__close,
+  .lightbox__nav { width: 2.5rem; height: 2.5rem; font-size: 1.15rem; }
+  .lightbox__img { max-height: 68vh; }
+}
+
 /* ---------------------------------------------------------------- 404 --- */
 
 .error-page {

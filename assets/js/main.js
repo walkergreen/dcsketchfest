@@ -122,6 +122,65 @@
     });
   }
 
+  /* ------------------------------------------------------------ lightbox */
+
+  var lightbox = document.getElementById("lightbox");
+  var tiles = Array.prototype.slice.call(document.querySelectorAll(".photo-tile"));
+
+  if (lightbox && tiles.length) {
+    var lbImg = lightbox.querySelector(".lightbox__img");
+    var lbCaption = lightbox.querySelector(".lightbox__caption");
+    var lbClose = lightbox.querySelector(".lightbox__close");
+    var lbPrev = lightbox.querySelector(".lightbox__nav--prev");
+    var lbNext = lightbox.querySelector(".lightbox__nav--next");
+    var current = 0;
+    var lastFocused = null;
+
+    function show(index) {
+      current = (index + tiles.length) % tiles.length;
+      var tile = tiles[current];
+      lbImg.src = tile.getAttribute("data-full");
+      lbImg.alt = tile.querySelector("img").alt;
+      lbCaption.innerHTML = tile.getAttribute("data-caption");
+    }
+
+    function open(index) {
+      lastFocused = document.activeElement;
+      show(index);
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+      lbClose.focus();
+    }
+
+    function close() {
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      // Release the full-size image so a long browse doesn't pile up memory.
+      lbImg.src = "";
+      if (lastFocused) lastFocused.focus();
+    }
+
+    tiles.forEach(function (tile, index) {
+      tile.addEventListener("click", function () { open(index); });
+    });
+
+    lbClose.addEventListener("click", close);
+    lbPrev.addEventListener("click", function () { show(current - 1); });
+    lbNext.addEventListener("click", function () { show(current + 1); });
+
+    // Click the backdrop (but not the photo or a control) to dismiss.
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) close();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (lightbox.hidden) return;
+      if (event.key === "Escape") close();
+      else if (event.key === "ArrowLeft") show(current - 1);
+      else if (event.key === "ArrowRight") show(current + 1);
+    });
+  }
+
   /* ------------------------------------------------------ scroll reveals */
 
   var revealables = document.querySelectorAll(".reveal");

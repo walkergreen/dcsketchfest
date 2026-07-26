@@ -11,6 +11,7 @@ dates announced this fall." There are no tickets on sale and no 2027 lineup; the
 
 ```
 index.html                  home page
+photos/index.html           photo album (generated — see below)
 performers-<year>/index.html  lineup pages (generated — see below)
 404.html                    not-found page
 assets/css/style.css        all styles
@@ -93,6 +94,25 @@ JSON and the generated HTML together.
 Performer images live in `assets/img/performers-<year>/`; the `local` field in
 each entry points at one. `city` and `link` are optional — cards drop the line
 when they're empty.
+
+**Change the photos** — the album at `/photos/` and the homepage Fest Pics
+carousel are both generated from `assets/lineups/gallery.json`:
+
+```bash
+python3 tools/build-gallery.py
+```
+
+Each entry holds a team name, a date, and paths to a thumbnail (800px) and a
+full-size image (1800px) under `assets/img/gallery/<year>/`. To swap what the
+homepage carousel shows, edit the `CAROUSEL` list at the top of
+`tools/build-gallery.py` — it names photos by team, so reprocessing the images
+can't silently reshuffle the front page. To add a year, add its photos, add an
+entry to `YEARS` in the same script, and rerun it. Commit the JSON, the images,
+and the generated `photos/index.html` together.
+
+Photos are by Mikail Faalasli; the originals live in the festival's Google
+Drive (roughly 32 GB of raw JPEGs across 2025 and 2026, plus a 2024 folder) and
+are deliberately not in this repo — only the resized web copies are.
 
 **Change colors or type** — the palette is a block of CSS variables at the top of
 `assets/css/style.css`:
