@@ -222,7 +222,7 @@ def album_page(manifest) -> str:
         </div>
       </div>
     </div>
-      <p class="footer-credit">Designed by <a href="https://instagram.com/guywalks" target="_blank" rel="noopener">Walker Green</a></p>
+      <p class="footer-credit">Design by <a href="https://instagram.com/guywalks" target="_blank" rel="noopener">Walker Green</a></p>
 
   </div>
 </footer>
