@@ -282,9 +282,34 @@ aliased onto these inks so older inline styles and generated pages keep
 working — change the new variables, not the aliases.
 
 Fonts are Anton (display) and Space Grotesk (body), loaded from Google Fonts.
-The logo is a text wordmark (`.wordmark`, `DC ★★★ Sketchfest`) rather than an
-image; the old PNG logos remain in `assets/img/brand/` but nothing references
-them. The 2026-brand site is archived at
+
+### The logo
+
+In the header and footer the logo is **not an image** — it is live text set in
+Anton plus an inline SVG of the DC flag (three stars over two bars), assembled
+by `.wordmark` / `.wordmark-flag` in the stylesheet. That keeps it crisp at any
+size and recolourable per background, which is why the footer version is cream
+and the header version is ink.
+
+For anywhere outside the website — posters, socials, a partner asking for "your
+logo" — use the standalone files, which carry the same lockup with the type
+converted to outlines so they need no font installed:
+
+| File | Use on |
+|------|--------|
+| `assets/img/brand/logo-wordmark.svg` | light backgrounds (ink type) |
+| `assets/img/brand/logo-wordmark-light.svg` | dark backgrounds (cream type) |
+
+The flag is `--pink` in both. They were generated from the live CSS lockup and
+match the desktop header to within half a percent.
+
+Two caveats. The CSS gap between the flag and the words is a fixed `7.2px`
+rather than an em value, so the on-site lockup is slightly tighter at large
+sizes than at small ones; the SVG files use a fixed `0.30em`, matching the
+desktop header. And the old 2026 PNG logos (`logo-wide.png`, `logo-stacked.png`)
+are still in `assets/img/brand/` — nothing on the site renders them, but the
+`Organization` JSON-LD block in `index.html` still points `logo` at
+`logo-stacked.png`, so that needs a new raster export before it is accurate. The 2026-brand site is archived at
 [2026.dcsketchfest.com](https://2026.dcsketchfest.com)
 (github.com/walkergreen/dcsketchfest-2026).
 
