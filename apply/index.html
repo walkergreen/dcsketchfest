@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5WTXCDDHMK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5WTXCDDHMK');
+</script>
+<title>Apply to Perform - DC Sketchfest 2027</title>
+<meta name="description" content="Applications are open for DC Sketchfest 2027, March 31 to April 3 in Washington, DC. Apply by December 13 - save your application and come back to finish it any time.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dcsketchfest.com/apply/">
+<meta property="og:title" content="Applications Open - DC Sketchfest 2027">
+<meta property="og:description" content="DC Sketchfest 2027 runs March 31 to April 3 in Washington, DC. Applications are open through December 13.">
+<meta property="og:image" content="https://dcsketchfest.com/assets/img/brand/og-apply-2027.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://dcsketchfest.com/apply/">
+<link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/brand/favicon-256.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/apply.css">
+</head>
+<body class="apply-page">
+<a class="skip-link" href="#form">Skip to the application</a>
+
+<!-- ============================================================== nav === -->
+<header class="navbar">
+  <div class="nav-inner">
+    <div class="nav-bar">
+      <a href="/" class="brand" aria-label="DC Sketchfest home"><img class="brand-logo" src="/assets/img/brand/logo-2027.png" alt="DC Sketchfest 2027" width="1000" height="523"></a>
+
+      <nav id="nav-links" class="nav-links" aria-label="Main">
+        <!-- Matches staging's own nav: no Photos page exists in this repo. -->
+        <a class="nav-link" href="/#about-section">2027</a>
+        <a class="nav-link" href="/apply/" aria-current="page">Apply</a>
+        <a class="nav-link" href="/volunteer/">Volunteer</a>
+        <a class="nav-link" href="/performers-2026/">Past Lineups</a>
+        <a class="nav-link" href="/photos/">Photos</a>
+        <a class="nav-link" href="/#faq-section">FAQ</a>
+        <a class="nav-link" href="mailto:admin@dcsketchfest.com?subject=Question">Contact</a>
+      </nav>
+
+      <a class="btn nav-donate-desktop" href="https://givebutter.com/dcsketchfest2027"><span>Donate</span></a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================= intro === -->
+<section class="section section--teal apply-hero">
+  <div class="pad pad-md">
+    <div class="container container--md apply-intro">
+      <h1 class="h-lg text-yellow">DC Sketchfest <span data-cfg="year">2027</span> Application</h1>
+      <p class="body-copy text-white" data-cfg="dates_line">March 31&ndash;April 3, 2027 &mdash; venue to be announced</p>
+      <p class="body-copy text-white">Washington, DC&rsquo;s <span data-cfg="edition">4th</span> Annual Sketch Comedy Festival</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream apply-body">
+  <div class="pad pad-md">
+    <div class="container container--md">
+
+      <div class="apply-notes">
+        <div class="apply-note">
+          <h2 class="h-xs">Instructions</h2>
+          <p>Apply now to perform at DC Sketchfest! Please note: DC Sketchfest is dedicated to sketch comedy only&mdash;improv and stand-up acts will not be considered, and application fees are non-refundable. After submitting your form, you&rsquo;ll be prompted to pay the DC Sketchfest application fee. <strong>Applications are incomplete without payment.</strong></p>
+          <p><strong>Important:</strong> All sales are final. Payment does not guarantee acceptance into the festival.</p>
+        </div>
+
+        <div class="apply-note">
+          <h2 class="h-xs">Deadlines</h2>
+          <!-- Rewritten from CONFIG.deadlines in apply.js; the copy below is the
+               no-JS fallback, so the two have to be kept in step. -->
+          <div id="deadlines">
+            <p>Early Application ($25) &ndash; October 20 to November 1.</p>
+            <p>Standard Application ($30) &ndash; November 1 to November 29.</p>
+            <p>Late Application ($40) &ndash; November 30 to December 13.</p>
+            <p><strong>Applications close December 13, 11:59 PM ET.</strong></p>
+          </div>
+          <!-- Written by apply.js only when Settings carries a tax rate or a
+               service fee: the prices above are the application fee on its own,
+               and someone who reads "$25" here and meets $27.61 at the card step
+               has been quoted the wrong number. Empty by default, so with both
+               off this panel is exactly the four lines above it. -->
+          <p class="fee-extras-note" id="fee-extras-note" hidden></p>
+        </div>
+
+        <div class="apply-note">
+          <h2 class="h-xs">Location</h2>
+          <p data-cfg="location">All shows are in Washington, DC. Venue to be announced.</p>
+        </div>
+
+        <div class="apply-note">
+          <h2 class="h-xs">Questions</h2>
+          <p>Read our <a href="/#faq-section">FAQs</a> or email <a href="mailto:admin@dcsketchfest.com">admin@dcsketchfest.com</a>.</p>
+          <p><strong>Notification:</strong> <span data-cfg="notification">All applicants will be contacted mid-January 2027.</span></p>
+        </div>
+      </div>
+
+      <!-- Save bar: sticky status + the "finish later" affordance. Hidden until
+           JS has confirmed it can actually reach the backend. -->
+      <div class="save-bar" id="save-bar" hidden>
+        <span class="save-status" id="save-status" role="status" aria-live="polite">Not saved yet</span>
+        <button type="button" class="btn btn--yellow save-later" id="save-later"><span>Save &amp; finish later</span></button>
+      </div>
+
+      <form id="form" class="apply-form" novalidate>
+        <!-- Bots fill hidden fields; humans never see this one. -->
+        <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Your team</legend>
+
+          <div class="field">
+            <label for="team_name">Team or Performer Name <span class="req">*</span></label>
+            <input type="text" id="team_name" name="team_name" autocomplete="organization" required>
+          </div>
+
+          <div class="field">
+            <label for="bio">Team or Performer Bio <span class="req">*</span></label>
+            <p class="help">This will be used to promote shows.</p>
+            <textarea id="bio" name="bio" rows="5" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="team_size">Team Size <span class="req">*</span></label>
+            <p class="help">How many festival badges will you need?</p>
+            <input type="number" id="team_size" name="team_size" min="1" max="99" step="1" inputmode="numeric" required>
+          </div>
+
+          <div class="field">
+            <label for="home">Home Theater / Home Town <span class="req">*</span></label>
+            <input type="text" id="home" name="home" required>
+          </div>
+
+          <div class="field">
+            <label for="instagram">Team or Performer Instagram</label>
+            <input type="text" id="instagram" name="instagram" placeholder="@dcsketchfest">
+          </div>
+
+          <div class="field">
+            <label for="photo">Group Photo or Headshot <span class="req">*</span></label>
+            <p class="help">This will be used to promote shows. JPG, PNG or HEIC, up to 10&nbsp;MB &mdash; large photos are shrunk in your browser before uploading.</p>
+            <div class="dropzone" id="dropzone">
+              <input type="file" id="photo" name="photo" accept="image/*">
+              <div class="dropzone-inner">
+                <img class="photo-preview" id="photo-preview" alt="" hidden>
+                <p class="dropzone-text" id="dropzone-text">Drop a photo here or <span class="link">click to browse</span></p>
+              </div>
+            </div>
+            <button type="button" class="text-btn" id="photo-remove" hidden>Remove photo</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Point of contact</legend>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="contact_first">First Name <span class="req">*</span></label>
+              <input type="text" id="contact_first" name="contact_first" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="contact_last">Last Name <span class="req">*</span></label>
+              <input type="text" id="contact_last" name="contact_last" autocomplete="family-name" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="contact_email">Email <span class="req">*</span></label>
+              <p class="help">Where we send your receipt and your decision.</p>
+              <input type="email" id="contact_email" name="contact_email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="contact_phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="contact_phone" name="contact_phone" autocomplete="tel" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Your show</legend>
+
+          <div class="field">
+            <label for="tape">Performance Tape <span class="req">*</span></label>
+            <p class="help">Paste a link to your tape &mdash; a YouTube or Vimeo link is strongly preferred.</p>
+            <input type="url" id="tape" name="tape" placeholder="https://" required>
+
+            <details class="guidelines">
+              <summary>Submission guidelines for your tape</summary>
+              <ul>
+                <li><strong>Tape length:</strong> submit a 15&ndash;20-minute video. Shorter submissions, such as a 5- or 10-minute tape, won&rsquo;t provide enough material for our judges to score accurately. Material beyond 20 minutes will not be watched.</li>
+                <li><strong>Content order:</strong> include your best material first and prioritize LIVE performance footage. Digital shorts (filmed content) are discouraged unless they strongly reflect your live show style.</li>
+                <li><strong>Video format:</strong> to avoid playback and permission issues, we strongly recommend submitting a YouTube or Vimeo link instead of using file-sharing sites like Google Drive or Dropbox. If you have multiple videos, please edit them into a single video before submitting.</li>
+                <li><strong>Judging process:</strong> your submission will be evaluated by a randomly assigned panel in the first round. Tailor your material for an audience unfamiliar with your previous work.</li>
+              </ul>
+              <p>Email <a href="mailto:admin@dcsketchfest.com">admin@dcsketchfest.com</a> if you have additional questions.</p>
+            </details>
+          </div>
+
+          <div class="field">
+            <label for="show_description">Show Description <span class="req">*</span></label>
+            <p class="help">What is your show about? Style of humor, format, etc.</p>
+            <textarea id="show_description" name="show_description" rows="5" required></textarea>
+          </div>
+
+          <fieldset class="field checkgroup" id="dates-group">
+            <legend>Select all show dates you are available to perform <span class="req">*</span></legend>
+            <p class="help">The more days you select, the better your chance of being placed in the festival. Each team is given 25 minutes; there are typically two to three teams per show. All shows are at night.</p>
+            <div class="checks" id="dates-checks">
+              <!-- Populated from CONFIG.dates in apply.js so a new festival year
+                   is a one-line edit rather than a markup rewrite. -->
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Tech</legend>
+
+          <fieldset class="field checkgroup" id="tech-level-group">
+            <legend>Which of these best describes the tech requirements of your show? <span class="req">*</span></legend>
+            <p class="help">Tech time at the venue is limited, so this is what we plan each show&rsquo;s cueing and running order around. Blackouts do not count towards your cues.</p>
+            <div class="checks">
+              <label class="check"><input type="radio" name="tech_level" value="Little to No Tech (not counting blackouts there are less than 5 cues)"><span>Little to No Tech (not counting blackouts there are less than 5 cues)</span></label>
+              <label class="check"><input type="radio" name="tech_level" value="Middle to Moderate Tech (not counting blackouts there are less than 15 cues)"><span>Middle to Moderate Tech (not counting blackouts there are less than 15 cues)</span></label>
+              <label class="check"><input type="radio" name="tech_level" value="Moderate to Heavy Tech (not counting blackouts there are less than 25 cues)"><span>Moderate to Heavy Tech (not counting blackouts there are less than 25 cues)</span></label>
+              <label class="check"><input type="radio" name="tech_level" value="Heavy Tech (there is a cue every minute or more of your set)"><span>Heavy Tech (there is a cue every minute or more of your set)</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="tech_reqs">Specify your tech requirements</label>
+            <p class="help">Microphone, projector, presentation remote, etc. You can modify this later.</p>
+            <textarea id="tech_reqs" name="tech_reqs" rows="3"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="stage_reqs">Specify your stage requirements</label>
+            <p class="help">Tables, chairs, stage blocks, etc. If accepted, you can modify this later.</p>
+            <textarea id="stage_reqs" name="stage_reqs" rows="3"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="accessibility">Do you have any accessibility requirements or special requests?</label>
+            <textarea id="accessibility" name="accessibility" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Optional</legend>
+          <p class="help group-help">Neither of these is required &mdash; answer as much or as little as you like.</p>
+
+          <fieldset class="field checkgroup">
+            <legend>Do any members of your team identify as:</legend>
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="representation" value="Asian"><span>Asian</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Black or African American"><span>Black or African American</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Hispanic or Latino"><span>Hispanic or Latino</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="LGBTQ+"><span>LGBTQ+</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Middle Eastern"><span>Middle Eastern</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Native"><span>Native</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Person(s) with disabilities"><span>Person(s) with disabilities</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Women"><span>Women</span></label>
+              <label class="check"><input type="checkbox" name="representation" value="Other" id="rep-other"><span>Other</span></label>
+            </div>
+            <div class="field" id="rep-other-field" hidden>
+              <label for="representation_other">Please specify</label>
+              <input type="text" id="representation_other" name="representation_other">
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="anything_else">Is there anything else we should know?</label>
+            <textarea id="anything_else" name="anything_else" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="h-sm">Application fee</legend>
+          <!-- Unhidden by apply.js when someone who has already paid comes back
+               to change an answer: the agreement still has to be ticked, but it
+               must not read as a fee they are about to be charged a second
+               time. -->
+          <p class="help" id="fee-paid-note" hidden>Your application fee is already paid. This is the agreement you made when you first applied &mdash; leave it ticked.</p>
+
+          <!-- The itemised price, filled from GET /apply/fee. The Worker is the
+               only thing that computes money; this renders what it reports and
+               hard-codes no amount. Hidden unless there is a tax or service-fee
+               line to itemise, because with neither set the agreement below
+               already states the one number in full. -->
+          <div id="fee-breakdown" hidden></div>
+
+          <div class="field">
+            <label class="check check--agree">
+              <input type="checkbox" name="agree" id="agree" required>
+              <span>Upon submitting this form, I will pay the DC Sketchfest Application fee<span id="agree-total"></span>. My application is incomplete without payment. All sales are final and non-refundable. Payment does not guarantee entry. I am submitting SKETCH comedy, not improv or stand-up. <span class="req">*</span></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="errors" id="errors" role="alert" hidden></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--purple" id="submit"><span>Submit and pay</span></button>
+          <button type="button" class="text-btn" id="clear">Clear form</button>
+        </div>
+      </form>
+
+      <!-- Sits outside the form so it is still on the page when the form is
+           swapped out for the confirmation, and still there if the submit
+           itself is what failed. -->
+      <!-- For someone who has NO link at all. "Save & finish later" needs an
+           application already open on this device; this does not, which is the
+           whole point: the person who needs it is on a different phone or
+           laptop from the one they started on.
+
+           The Worker answers an identical 200 whether or not the address has an
+           application, so that this cannot be used to discover who applied --
+           which means this panel must never say "found" or "not found". The
+           hedged wording below is load-bearing; do not "improve" it into a
+           confirmation. -->
+      <div class="recover-box">
+        <p class="recover-intro">Already started an application?
+          <button type="button" class="text-btn" id="recover-toggle">Click here to resume</button>
+        </p>
+        <div class="recover-form" id="recover-form" hidden>
+          <label class="visually-hidden" for="recover-email">Your email address</label>
+          <input type="email" id="recover-email" placeholder="the email you applied with" autocomplete="email">
+          <button type="button" class="btn btn--yellow" id="recover-send"><span>Email it to me</span></button>
+          <p class="recover-status" id="recover-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <p class="apply-help-out">Having issues submitting this form? Email
+        <a href="mailto:admin@dcsketchfest.com?subject=Trouble%20submitting%20my%20DC%20Sketchfest%20application">admin@dcsketchfest.com</a>.</p>
+
+      <!-- Swapped in for the form once the application is submitted, and again
+           when a change to an application that was already in is saved. -->
+      <div id="done" class="done" hidden></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== footer === -->
+<footer class="footer">
+  <div class="pad pad-sm">
+    <div class="container footer-wrapper">
+      <a class="footer-logo" href="/" title="Homepage"><img class="brand-logo brand-logo--light" src="/assets/img/brand/logo-2027-light.png" alt="DC Sketchfest 2027" width="1000" height="511"></a>
+      <div class="footer-social">
+        <div class="join-us">Follow us on social media!</div>
+        <div class="social-links">
+          <a href="https://facebook.com/dcsketchfest" target="_blank" rel="noopener">fb</a>
+          <a href="https://instagram.com/dcsketchfest" target="_blank" rel="noopener">insta</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-credit">Designed by <a href="https://instagram.com/guywalks" target="_blank" rel="noopener">Walker Green</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/apply.js" defer></script>
+</body>
+</html>

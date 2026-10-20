@@ -48,6 +48,8 @@ GA_TAG = """<!-- Google tag (gtag.js) -->
 
 NAV = """      <nav id="nav-links" class="nav-links" aria-label="Main">
         <a class="nav-link" href="/#about-section">2027</a>
+        <a class="nav-link" href="/apply/">Apply</a>
+        <a class="nav-link" href="/volunteer/">Volunteer</a>
         <a class="nav-link" href="/performers-2026/">Past Lineups</a>
         <a class="nav-link" href="/photos/" aria-current="page">Photos</a>
         <a class="nav-link" href="/#faq-section">FAQ</a>

@@ -36,28 +36,15 @@ YEARS = {
     "2026": {"dates": "March 25–28, 2026", "venue": "The DC Arts Center"},
     # 2025 dates come from the festival photo filenames (2025-03-26 … 03-29).
     "2025": {"dates": "March 26–29, 2025", "venue": "The DC Arts Center"},
-    "2024": {"dates": "March 20–23, 2024",
-             "venue": "The DC Improv and The DC Arts Center"},
+    "2024": {"dates": "", "venue": "Washington, DC"},
 }
-
-GA_TAG = """<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5WTXCDDHMK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5WTXCDDHMK');
-</script>
-"""
 
 PAGE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-{ga}<title>{year} Lineup - DC Sketchfest</title>
+<title>{year} Lineup - DC Sketchfest</title>
 <meta name="description" content="The {count} sketch comedy teams who performed at DC Sketchfest {year}.">
 
 <meta property="og:type" content="website">
@@ -83,12 +70,12 @@ PAGE = """<!DOCTYPE html>
 <header class="navbar">
   <div class="nav-inner">
     <div class="nav-bar">
-      <a href="/" class="brand" aria-label="DC Sketchfest home">
-        <span class="wordmark">DC <svg class="wordmark-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false"><polygon points="11.0,2.5 13.0,8.2 19.1,8.4 14.2,12.1 16.0,17.9 11.0,14.4 6.0,17.9 7.8,12.1 2.9,8.4 9.0,8.2"/><polygon points="30.0,2.5 32.0,8.2 38.1,8.4 33.2,12.1 35.0,17.9 30.0,14.4 25.0,17.9 26.8,12.1 21.9,8.4 28.0,8.2"/><polygon points="49.0,2.5 51.0,8.2 57.1,8.4 52.2,12.1 54.0,17.9 49.0,14.4 44.0,17.9 45.8,12.1 40.9,8.4 47.0,8.2"/><rect x="0" y="23" width="60" height="6"/><rect x="0" y="33" width="60" height="6"/></svg> Sketchfest</span>
-      </a>
+      <a href="/" class="brand" aria-label="DC Sketchfest home"><img class="brand-logo" src="/assets/img/brand/logo-2027.png" alt="DC Sketchfest 2027" width="1000" height="523"></a>
 
       <nav id="nav-links" class="nav-links" aria-label="Main">
         <a class="nav-link" href="/#about-section">2027</a>
+        <a class="nav-link" href="/apply/">Apply</a>
+        <a class="nav-link" href="/volunteer/">Volunteer</a>
         <a class="nav-link" href="/performers-{newest}/" aria-current="page">Past Lineups</a>
         <a class="nav-link" href="/photos/">Photos</a>
         <a class="nav-link" href="/#faq-section">FAQ</a>
@@ -115,7 +102,7 @@ PAGE = """<!DOCTYPE html>
 {years}
       </nav>
 
-      <p class="archive-note">DC Sketchfest returns in 2027 &mdash; dates are announced this fall, and the new lineup follows. <a href="/#newsletter-section">Get on the list</a> to hear first.</p>
+      <p class="archive-note">DC Sketchfest returns March 31&ndash;April 3, 2027 &mdash; four nights of sketch, venue to be announced. <a href="/apply/">Applications are open</a> through December 13.</p>
     </div>
   </div>
 </section>
@@ -135,7 +122,8 @@ PAGE = """<!DOCTYPE html>
     <div class="container text-center">
       <h2 class="h-sm text-white">Don&rsquo;t miss 2027</h2>
       <div class="btn-row" style="margin-top:1.5rem">
-        <a class="btn btn--yellow" href="/#newsletter-section"><span>Get Updates</span></a>
+        <a class="btn btn--yellow" href="/apply/"><span>Apply Now</span></a>
+        <a class="btn btn--purple" href="/#newsletter-section"><span>Get Updates</span></a>
       </div>
     </div>
   </div>
@@ -145,9 +133,7 @@ PAGE = """<!DOCTYPE html>
 <footer class="footer">
   <div class="pad pad-sm">
     <div class="container footer-wrapper">
-      <a class="footer-logo" href="/" title="Homepage">
-        <span class="wordmark">DC <svg class="wordmark-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false"><polygon points="11.0,2.5 13.0,8.2 19.1,8.4 14.2,12.1 16.0,17.9 11.0,14.4 6.0,17.9 7.8,12.1 2.9,8.4 9.0,8.2"/><polygon points="30.0,2.5 32.0,8.2 38.1,8.4 33.2,12.1 35.0,17.9 30.0,14.4 25.0,17.9 26.8,12.1 21.9,8.4 28.0,8.2"/><polygon points="49.0,2.5 51.0,8.2 57.1,8.4 52.2,12.1 54.0,17.9 49.0,14.4 44.0,17.9 45.8,12.1 40.9,8.4 47.0,8.2"/><rect x="0" y="23" width="60" height="6"/><rect x="0" y="33" width="60" height="6"/></svg> Sketchfest</span>
-      </a>
+      <a class="footer-logo" href="/" title="Homepage"><img class="brand-logo brand-logo--light" src="/assets/img/brand/logo-2027-light.png" alt="DC Sketchfest 2027" width="1000" height="511"></a>
       <div class="footer-social">
         <div class="join-us">Follow us on social media!</div>
         <div class="social-links">
@@ -156,8 +142,6 @@ PAGE = """<!DOCTYPE html>
         </div>
       </div>
     </div>
-      <p class="footer-credit">Design by <a href="https://instagram.com/guywalks" target="_blank" rel="noopener">Walker Green</a></p>
-
   </div>
 </footer>
 
@@ -217,7 +201,6 @@ def main() -> None:
         out = ROOT / ("performers-%s" % year) / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(PAGE.format(
-            ga=GA_TAG,
             year=year,
             newest=available[0],
             count=len(performers),
