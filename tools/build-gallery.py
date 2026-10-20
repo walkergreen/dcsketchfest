@@ -54,6 +54,7 @@ NAV = """      <nav id="nav-links" class="nav-links" aria-label="Main">
         <a class="nav-link" href="/photos/" aria-current="page">Photos</a>
         <a class="nav-link" href="/#faq-section">FAQ</a>
         <a class="nav-link" href="mailto:admin@dcsketchfest.com?subject=Question">Contact</a>
+        <a class="nav-link nav-donate-mobile" href="https://givebutter.com/dcsketchfest2027">Donate</a>
       </nav>"""
 
 WORDMARK = ('<span class="wordmark">DC <svg class="wordmark-flag" viewBox="0 0 60 40" '
