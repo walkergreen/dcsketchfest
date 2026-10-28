@@ -49,7 +49,7 @@
   "image": "https://dcsketchfest.com/assets/img/brand/og-2027.png",
   "location": [
     { "@type": "Place", "name": "MILKCRATE", "address": { "@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US" } },
-    { "@type": "Place", "name": "Sitar Arts Center", "address": { "@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US" } }
+    { "@type": "Place", "name": "Sitar Arts Center", "address": { "@type": "PostalAddress", "streetAddress": "1700 Kalorama Road NW, Suite 101", "addressLocality": "Washington", "addressRegion": "DC", "postalCode": "20009", "addressCountry": "US" } }
   ]
 }
 </script>
@@ -213,7 +213,12 @@
 </section>
 
 <!-- =========================================================== venues === -->
-<!-- Both logos sit on their own paper card rather than straight on the blue:
+<!-- MILKCRATE has no address here on purpose: it is not published anywhere I
+     could verify, and a guessed address on the page people navigate by sends
+     them to the wrong building. Add it the moment it is known, in the card
+     below and in the JSON-LD Place above.
+
+     Both logos sit on their own paper card rather than straight on the blue:
      Sitar's mark is red and MILKCRATE's is black, and neither is legible on a
      saturated background. The card also gives two marks of very different
      proportions (one tall, one square) a shared frame, which is what stops the
@@ -240,6 +245,9 @@
           </div>
           <h3 class="h-sm">Sitar Arts Center</h3>
           <p class="venue-nights">Friday, April&nbsp;2<br>Saturday, April&nbsp;3</p>
+          <p class="venue-address"><a class="link" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&amp;query=Sitar+Arts+Center+1700+Kalorama+Road+NW+Washington+DC+20009">1700
+            Kalorama Road NW, Suite&nbsp;101<br>Washington, DC 20009</a></p>
         </li>
       </ul>
 

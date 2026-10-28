@@ -1083,6 +1083,18 @@ h5 {
   color: var(--ink);
 }
 
+.venue-address {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  line-height: 1.45;
+  margin-top: .75rem;
+  color: var(--ink);
+}
+
+/* The cards are a grid row, so one card gaining an address and the other not
+   does not make them different heights -- the shorter one just has more space
+   under its nights. Nothing to compensate for here. */
+
 .venue-note { margin-top: 2.5rem; }
 
 @media (max-width: 767px) {
