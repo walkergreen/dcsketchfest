@@ -48,7 +48,7 @@
   "description": "Four nights of sketch comedy in Washington, DC. DC's only sketch comedy festival brings dozens of troupes from across the US and Canada.",
   "image": "https://dcsketchfest.com/assets/img/brand/og-2027.png",
   "location": [
-    { "@type": "Place", "name": "MILKCRATE", "address": { "@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US" } },
+    { "@type": "Place", "name": "MILKCRATE", "address": { "@type": "PostalAddress", "streetAddress": "4722 14th Street NW", "addressLocality": "Washington", "addressRegion": "DC", "postalCode": "20011", "addressCountry": "US" } },
     { "@type": "Place", "name": "Sitar Arts Center", "address": { "@type": "PostalAddress", "streetAddress": "1700 Kalorama Road NW, Suite 101", "addressLocality": "Washington", "addressRegion": "DC", "postalCode": "20009", "addressCountry": "US" } }
   ]
 }
@@ -213,10 +213,10 @@
 </section>
 
 <!-- =========================================================== venues === -->
-<!-- MILKCRATE has no address here on purpose: it is not published anywhere I
-     could verify, and a guessed address on the page people navigate by sends
-     them to the wrong building. Add it the moment it is known, in the card
-     below and in the JSON-LD Place above.
+<!-- Each address appears twice: once in the card, where a person reads it,
+     and once as a PostalAddress on the matching Place in the JSON-LD above,
+     which is what makes the venue resolve in search and maps rather than
+     being a bare name. Change one and change the other.
 
      Both logos sit on their own paper card rather than straight on the blue:
      Sitar's mark is red and MILKCRATE's is black, and neither is legible on a
@@ -237,6 +237,9 @@
           </div>
           <h3 class="h-sm">MILKCRATE</h3>
           <p class="venue-nights">Wednesday, March&nbsp;31<br>Thursday, April&nbsp;1</p>
+          <p class="venue-address"><a class="link" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&amp;query=MILKCRATE+4722+14th+Street+NW+Washington+DC+20011">4722
+            14th Street NW<br>Washington, DC 20011</a></p>
         </li>
         <li class="venue-card reveal">
           <div class="venue-logo-wrap">
@@ -251,7 +254,7 @@
         </li>
       </ul>
 
-      <p class="body-copy text-center text-white venue-note">Addresses and door times go out to the
+      <p class="body-copy text-center text-white venue-note">Door times and ticket on-sales go out to the
         <a class="link" href="#newsletter-section">mailing list</a> closer to the festival.</p>
     </div>
   </div>
@@ -437,7 +440,7 @@
 
           <details class="faq-item">
             <summary>Where is it happening?</summary>
-            <div class="faq-answer">Two venues, both in Washington, DC. <strong>MILKCRATE</strong> hosts Wednesday, March 31 and Thursday, April 1. <strong>Sitar Arts Center</strong> hosts Friday, April 2 and Saturday, April 3. <a href="#newsletter-section">Join the mailing list</a> for addresses, door times and ticket on-sales.</div>
+            <div class="faq-answer">Two venues, both in Washington, DC. <strong>MILKCRATE</strong> hosts Wednesday, March 31 and Thursday, April 1. <strong>Sitar Arts Center</strong> hosts Friday, April 2 and Saturday, April 3. Addresses are in <a href="#venue-section">Where</a>; <a href="#newsletter-section">join the mailing list</a> for door times and ticket on-sales.</div>
           </details>
 
           <details class="faq-item">
