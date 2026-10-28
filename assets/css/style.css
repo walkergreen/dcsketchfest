@@ -1033,7 +1033,10 @@ h5 {
 
 /* -------------------------------------------------------------- venue --- */
 
-/* Stands in for the address and map while the 2027 venue is unsigned. */
+/* Unused since the 2027 rebuild dropped the venue panel from the homepage.
+   Kept because the venues (MILKCRATE and Sitar Arts Center) still have no
+   published addresses here, and this is the styling a panel would want the
+   day they do. Delete it if that panel never comes back. */
 .venue-tba {
   max-width: 42rem;
   margin: 2.5rem auto 0;

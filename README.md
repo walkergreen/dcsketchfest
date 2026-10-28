@@ -326,10 +326,17 @@ When the 2027 dates are public, in order:
    `2027-03-01`). The calendar pulls shows straight from Crowdwork, so it fills
    in on its own once shows are published there.
 3. **FAQ** — update "When is the 2027 festival?" and "Where do I get tickets?".
-4. **Venue** — `#where-section` currently shows a `.venue-tba` panel reading
-   "2027 location to be announced". Once the venue is signed, replace that
-   panel with the venue name, the address link, and the Google Maps iframe
-   (both are in git history, before the 2027 rebrand).
+4. **Venue** — announced: **MILKCRATE** on Wednesday 31 March and Thursday
+   1 April, **Sitar Arts Center** on Friday 2 April and Saturday 3 April.
+   The names are in the homepage intro, the "Where is it happening?" FAQ,
+   the JSON-LD `location` array, the apply page's dates line and Location
+   block, `CONFIG.dates_line`/`CONFIG.location` in `apply.js`, and the
+   archive note in `tools/build-lineup.py`. Neither street address is
+   published yet: add `address` to each `Place` in the JSON-LD and, if you
+   want a map back, restore a panel using the `.venue-tba` / `.venue-map`
+   rules still in `style.css`.
+
+
 5. **Lineup** — add the new teams as `assets/lineups/2027.json`, add a `"2027"`
    entry to the `YEARS` dict in `tools/build-lineup.py`, and run it. The page and
    the year switcher build themselves; earlier years stay put as the archive.

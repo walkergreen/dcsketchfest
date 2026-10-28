@@ -34,8 +34,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 
-<!-- No "location": the 2027 venue is unsigned, and a guessed or omitted-but-
-     implied address is worse than none. Add it once the venue is announced. -->
+<!-- Two venues, so "location" is an array. Names only: a guessed address is
+     worse than none, and neither street address is confirmed here yet. Add
+     "address" to each Place once they are. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,7 +46,11 @@
   "startDate": "2027-03-31",
   "endDate": "2027-04-03",
   "description": "Four nights of sketch comedy in Washington, DC. DC's only sketch comedy festival brings dozens of troupes from across the US and Canada.",
-  "image": "https://dcsketchfest.com/assets/img/brand/og-2027.png"
+  "image": "https://dcsketchfest.com/assets/img/brand/og-2027.png",
+  "location": [
+    { "@type": "Place", "name": "MILKCRATE", "address": { "@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US" } },
+    { "@type": "Place", "name": "Sitar Arts Center", "address": { "@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US" } }
+  ]
 }
 </script>
 </head>
@@ -124,7 +129,7 @@
     <div class="container--md container">
       <h2 class="h-lg text-center reveal">Apply for <span class="text-teal">2027</span></h2>
 
-      <p class="body-copy text-center">Wednesday, March 31 through Saturday, April 3, 2027 &mdash; four nights of sketch comedy in Washington, DC. Venue to be announced.</p>
+      <p class="body-copy text-center">Wednesday, March 31 through Saturday, April 3, 2027 &mdash; four nights of sketch comedy in Washington, DC, at MILKCRATE and Sitar Arts Center.</p>
 
       <!-- A table, not cards: the three windows differ only by date and price,
            so the comparison is the whole point. The "Open now" flag is hand
@@ -387,7 +392,7 @@
 
           <details class="faq-item">
             <summary>Where is it happening?</summary>
-            <div class="faq-answer">The 2027 venue hasn't been announced yet. It will be in Washington, DC, as every festival has been. <a href="#newsletter-section">Join the mailing list</a> and we'll send it out as soon as it's signed.</div>
+            <div class="faq-answer">Two venues, both in Washington, DC. <strong>MILKCRATE</strong> hosts Wednesday, March 31 and Thursday, April 1. <strong>Sitar Arts Center</strong> hosts Friday, April 2 and Saturday, April 3. <a href="#newsletter-section">Join the mailing list</a> for addresses, door times and ticket on-sales.</div>
           </details>
 
           <details class="faq-item">
@@ -430,7 +435,7 @@
   <div class="pad pad-md">
     <div class="container--md container text-center reveal">
       <h2 class="h-xl text-white">Join <span class="text-yellow">DCSF</span></h2>
-      <h3 class="h-xs text-white" style="margin-top:1.5rem">Lineup news, ticket on-sales and the 2027 venue, straight to your inbox</h3>
+      <h3 class="h-xs text-white" style="margin-top:1.5rem">Lineup news, ticket on-sales and door times, straight to your inbox</h3>
 
       <!-- Signup posts to a Google Apps Script web app that appends a row to a
            Sheet. Paste the deployment URL into data-endpoint — see README

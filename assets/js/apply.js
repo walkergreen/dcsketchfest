@@ -25,8 +25,8 @@
 
     year: '2027',
     edition: '4th',
-    dates_line: 'March 31–April 3, 2027 — venue to be announced',
-    location: 'All shows are in Washington, DC. Venue to be announced.',
+    dates_line: 'March 31–April 3, 2027 — MILKCRATE and Sitar Arts Center',
+    location: 'All shows are in Washington, DC. MILKCRATE hosts Wednesday and Thursday; Sitar Arts Center hosts Friday and Saturday.',
 
     /* Three fee windows this year rather than two fixed deadlines, so the
        page renders this list instead of one line per tier. The Worker's /fee
