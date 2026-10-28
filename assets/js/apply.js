@@ -37,7 +37,7 @@
        the other two windows cannot be totalled here — renderFee() annotates
        this list with the real total instead of restating it per line. */
     deadlines: [
-      'Early Application ($25) – October 20 to November 1.',
+      'Early Application ($25) – October 20 to October 31.',
       'Standard Application ($30) – November 1 to November 29.',
       'Late Application ($40) – November 30 to December 13.'
     ],
