@@ -315,6 +315,7 @@ one file to six. Check this table before editing anything shared.
 | **Lineup page markup** | **1** | `tools/build-lineup.py`, then rerun |
 | **Photo album / Fest Pics carousel** | **1** | `tools/build-gallery.py`, then rerun |
 | **Festival copy on `/apply/`** | **3 surfaces** | `assets/js/apply.js` CONFIG, the page's own meta tags, **and** the Worker's D1 settings — see [The application system](#the-application-system) |
+| **A whole new page** | **7** | the page itself, the nav in all 5 above, and `sitemap.xml` — which is hand-maintained and was missing `/apply/` and `/volunteer/` for weeks |
 
 `404.html` has no nav and no footer, so it is **not** one of the five for those.
 `admin/`, `donate/` and `past-performers/` are meta-refresh redirect stubs — no
@@ -479,14 +480,11 @@ What is left:
 
 2. **2027 lineup** — add `assets/lineups/2027.json`, add a `"2027"` entry to the
    `YEARS` dict in `tools/build-lineup.py`, and run it. The page and the year
-   switcher build themselves. Then drop the `.archive-note` paragraph from the
+   switcher build themselves. Add `/performers-2027/` to `sitemap.xml` by hand,
+   which no generator does. Then drop the `.archive-note` paragraph from the
    template (`build-lineup.py:109`) once 2027 is current.
 
-3. **sitemap.xml** — it currently lists only `/`, `/photos/` and the three
-   lineup pages. **`/apply/` and `/volunteer/` are live and linked from the nav
-   but missing from it**, and the 2027 lineup URL will need adding too.
-
-4. **Analytics on the pages that have none** — the three lineup pages and
+3. **Analytics on the pages that have none** — the three lineup pages and
    `/volunteer/` are unmeasured. See [4. Analytics](#4-analytics--google-analytics-4).
 
 ## Third-party pieces at a glance
