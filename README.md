@@ -248,7 +248,7 @@ Cloudflare Worker in a separate private repo,
 |-------|-------|
 | Worker | `dcsketchfest-app.walker-df2.workers.dev` (Cloudflare) |
 | Database | Cloudflare D1, `dcsketchfest` — the source of truth |
-| Payments | **Stripe, live mode.** $25 + 6% DC tax + card fee = **$27.61** |
+| Payments | **Stripe, live mode.** Base fee by window ($25 / $30 / $40) + 6% DC tax + card fee. `GET /api/apply/fee` reports the open window and the exact total. |
 | Email | Resend, from `admin@send.dcsketchfest.com` (the apex is *not* verified) |
 | Mirrors | an Airtable base and a Google Sheet, both best-effort copies |
 | Alerts | Slack `#applicants`, on submission only |
@@ -273,6 +273,20 @@ they must agree:
 
 Get 1 and 3 out of step and the page advertises one price while the card is
 charged another.
+
+The homepage fee table in `index.html` is a fourth copy, and the only one that
+asks rather than asserts: all three rows ship an "Open now" flag, two of them
+hidden, and `assets/js/main.js` un-hides whichever row `/apply/fee` reports as
+open. Set the un-hidden row to whatever is open when you commit, because that
+is what a visitor sees with JS off or the Worker unreachable, and leave the rest
+to the fetch. The flag used to be hand-kept with a note to move it on November 1
+and again on November 30; it ran two days late the first time, and the table
+went on offering $25 after the $30 window had opened.
+
+The prices in that table stay hand-written on purpose. `/apply/fee` reports only
+the window that is open now, so the other two cannot be read from it, and
+copying the gross-up into the page would make it a second source of truth for a
+number Stripe charges.
 
 ### The Worker can commit into this repo
 
@@ -499,7 +513,7 @@ Everything the site talks to, and where it is documented:
 | Analytics | Google Analytics 4, `G-5WTXCDDHMK` | [4. Analytics](#4-analytics--google-analytics-4) |
 | Tickets | Crowdwork, `dcsketchfest` | [5. Ticketing](#5-ticketing--crowdwork) |
 | Applications | Cloudflare Worker + D1 | [The application system](#the-application-system) |
-| Application fees | **Stripe, live mode** | $27.61 all-in; separate repo |
+| Application fees | **Stripe, live mode** | window-based; `GET /api/apply/fee` is authoritative; separate repo |
 | Transactional email | Resend | sends from `send.dcsketchfest.com`, *not* the apex |
 | Applicant mirrors | Airtable + a Google Sheet | best-effort copies of D1 |
 | Applicant alerts | Slack `#applicants` | on submission only |
