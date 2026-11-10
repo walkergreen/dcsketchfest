@@ -280,7 +280,7 @@ hidden, and `assets/js/main.js` un-hides whichever row `/apply/fee` reports as
 open. Set the un-hidden row to whatever is open when you commit, because that
 is what a visitor sees with JS off or the Worker unreachable, and leave the rest
 to the fetch. The flag used to be hand-kept with a note to move it on November 1
-and again on November 30; it ran two days late the first time, and the table
+and again on December 1; it ran two days late the first time, and the table
 went on offering $25 after the $30 window had opened.
 
 The prices in that table stay hand-written on purpose. `/apply/fee` reports only
